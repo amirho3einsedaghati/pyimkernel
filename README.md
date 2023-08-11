@@ -31,7 +31,6 @@ imkernel.imshow(image=filtered_image, cmap=plt.cm.gray)
 ## Output
 <b>Before</b> Applying the blur kernel on a gray scale image 9
 
-<br /><br/>
 <img src="https://i.postimg.cc/Bn8nRVyY/image9.png">
 <br /><br/>
 
