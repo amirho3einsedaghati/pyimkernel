@@ -16,8 +16,7 @@ setup(
     url='https://github.com/amirho3einsedaghati/pyimkernel',
     author='Amir Hosein Sedaghati',
     author_email='amirhosseinsedaghati42@gmail.com',
-    #maintainer_contact='https://linktr.ee/amirhoseinsedaghati',
-    requires='Python >=3.6',
+    maintainer_contact='https://linktr.ee/amirhoseinsedaghati',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
