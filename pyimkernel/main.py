@@ -192,6 +192,8 @@ class ApplyKernels():
         Methods:
         - apply_filter_on_gray_img: Apply some kernel(s) on a grayscale image.
         - apply_filter_on_color_img: Apply some kernel(s) on a color scale image.
+        - __color_scale_implementation: It is a private method. It's used for applying filter(s) on an image.
+        - imshow: Show the input image
     """
     def __init__(self, random_seed:int=42):
         self.random_seed = random_seed
@@ -261,7 +263,7 @@ class ApplyKernels():
 
     def __color_scale_implementation(slef, X, kernel_name):
         """
-        return a filtered image
+        It's used for applying filter(s) on an image. So, It returns a filtered image
         """
         if len(X.shape) == 2: 
             if kernel_name.lower() == 'all':
@@ -330,24 +332,21 @@ class ApplyKernels():
         except:
             raise IndexError(f'Expected 3 channels but got 0!')
         else:
-            try:
-                if X.shape[2] == 3 and len(X.shape) == 3:
-                    np.random.seed(self.random_seed)  
-                    X = X.reshape(X.shape[0], -1) # convert to a 2-D array
-                    if with_resize == True:
-                        if X.shape[0] > 400 or X.shape[1] > 400:
-                            X = cv2.resize(X, (400, 400))
-                            filtered_image = self.__color_scale_implementation(X, kernel_name)
-                            return filtered_image
-                        else:
-                            with_resize = False
-                    if with_resize == False:
+            if X.shape[2] == 3 and len(X.shape) == 3:
+                np.random.seed(self.random_seed)  
+                X = X.reshape(X.shape[0], -1) # convert to a 2-D array
+                if with_resize == True:
+                    if X.shape[0] > 400 or X.shape[1] > 400:
+                        X = cv2.resize(X, (400, 400))
                         filtered_image = self.__color_scale_implementation(X, kernel_name)
                         return filtered_image
-                else:
-                    raise ValueError(f'Expected 3 axes and 3 channels but got {len(X.shape)} axes and {X.shape[2]} channels!')
-            except:
-                raise IndexError(f'Expected 3 channels but got {X.shape[2]}!')
+                    else:
+                        with_resize = False
+                if with_resize == False:
+                    filtered_image = self.__color_scale_implementation(X, kernel_name)
+                    return filtered_image
+            else:
+                raise ValueError(f'Expected 3 axes and 3 channels but got {len(X.shape)} axes and {X.shape[2]} channels!')
     
 
     def imshow(self, image, figsize:tuple=(5, 5), cmap=None):
