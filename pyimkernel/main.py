@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from itertools import product
+import cv2
 
 
 gray_kernels = {
@@ -189,8 +190,8 @@ class ApplyKernels():
             To get the same results each time you run the function, You should initialize it with your desired value.
 
         Methods:
-        - apply_filter_on_gray_img: Apply some kernel(s) on a gray scale image.
-        - apply_filter_on_color_img: Apply some kernel(s) on a color image.
+        - apply_filter_on_gray_img: Apply some kernel(s) on a grayscale image.
+        - apply_filter_on_color_img: Apply some kernel(s) on a color scale image.
     """
     def __init__(self, random_seed:int=42):
         self.random_seed = random_seed
@@ -198,13 +199,13 @@ class ApplyKernels():
 
     def apply_filter_on_gray_img(self, X, kernel_name:str='all'):
         """
-        Apply some kernel(s) on a gray scale image.
+        Apply some kernel(s) on a grayscale image.
             
             
         Parameters:
         ------------
         - X: 2-D array 
-            The gray scale image on which the filter(s) will be apply.
+            The grayscale image on which the filter(s) will be apply.
             
         - kernel_name: str, default='all'
         The list of valid kernels:
@@ -233,7 +234,7 @@ class ApplyKernels():
         
         Returns:
         ------------
-        `numpy.ndarray` (a 2-D Array) or Dict
+        `numpy.ndarray`(a 2-D Array), Dict, or error message
         """
         np.random.seed(self.random_seed)  
         if len(X.shape) == 2: 
@@ -258,15 +259,39 @@ class ApplyKernels():
             raise ValueError(f'Expected 2 axes, but got {len(X.shape)} axes.')
 
 
-    def apply_filter_on_color_img(self, X, kernel_name:str='all'):
+    def __color_scale_implementation(slef, X, kernel_name):
         """
-        Apply some kernel(s) on a color image.
+        return a filtered image
+        """
+        if len(X.shape) == 2: 
+            if kernel_name.lower() == 'all':
+                filtered_images = {}
+                for k_name, k_arr in color_kernels.items():
+                    filtered_image = np.zeros(X.shape)
+                    for i, j in product(range(X.shape[0] - 2), range(X.shape[1] - 8)):
+                        filtered_image[i, j] = np.sum(X[i:i+3, j:j+9] * k_arr)
+                    filtered_images[k_name] = filtered_image
+                return filtered_images # a Dictionary of various filters of an image 
+
+            elif not kernel_name.lower() in color_kernels.keys():
+                raise ValueError(f'There is no kernel named {kernel_name}. Please read the Docstring :)')
+
+            else:
+                filtered_image = np.zeros(X.shape)
+                for i, j in product(range(X.shape[0] - 2), range(X.shape[1] - 8)):
+                    filtered_image[i, j] = np.sum(X[i:i+3, j:j+9] * color_kernels[kernel_name])
+                return filtered_image # a 2-D Array
+
+
+    def apply_filter_on_color_img(self, X, kernel_name:str='all', with_resize:bool=False):
+        """
+        Apply some kernel(s) on a color scale image.
             
             
         Parameters:
         ------------
         - X: 2-D array
-            The color image on which the filter(s) will be apply.
+            The color scale image on which the filter(s) will be apply.
             
         - kernel_name: str, default='all'
         The list of valid kernels:
@@ -292,10 +317,13 @@ class ApplyKernels():
         'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provide more weight to the central pixel and its immediate neighbors.	
         'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provide more weight to the central pixel and its immediate neighbors.
         
-        
+        - with_resize: bool, default=False
+            1. if the number of rows and columns in the input image are bigger than 400 pixels, and you assign True to the with_resize parameter, the number of rows and columns will change to 400 pixels and the kernel(s) will be apply on this image.
+            2. if the number of rows and columns in the input image are smaller than 400 pixels, and you assign True/False to the with_resize parameter, the number of rows and columns won't change. So, the kernel(s) will be apply on the input image.
+
         Returns:
         ------------
-        `numpy.ndarray` (a 2-D Array) or Dict
+        `numpy.ndarray`(a 2-D Array), Dict, or error message
         """
         try: 
             axis2_val = X.shape[2]
@@ -306,24 +334,16 @@ class ApplyKernels():
                 if X.shape[2] == 3 and len(X.shape) == 3:
                     np.random.seed(self.random_seed)  
                     X = X.reshape(X.shape[0], -1) # convert to a 2-D array
-                    if len(X.shape) == 2: 
-                        if kernel_name.lower() == 'all':
-                            filtered_images = {}
-                            for k_name, k_arr in color_kernels.items():
-                                filtered_image = np.zeros(X.shape)
-                                for i, j in product(range(X.shape[0] - 2), range(X.shape[1] - 8)):
-                                    filtered_image[i, j] = np.sum(X[i:i+3, j:j+9] * k_arr)
-                                filtered_images[k_name] = filtered_image
-                            return filtered_images # a Dictionary of various filters of an image 
-
-                        elif not kernel_name.lower() in color_kernels.keys():
-                            raise ValueError(f'There is no kernel named {kernel_name}. Please read the Docstring :)')
-
+                    if with_resize == True:
+                        if X.shape[0] > 400 or X.shape[1] > 400:
+                            X = cv2.resize(X, (400, 400))
+                            filtered_image = self.__color_scale_implementation(X, kernel_name)
+                            return filtered_image
                         else:
-                            filtered_image = np.zeros(X.shape)
-                            for i, j in product(range(X.shape[0] - 2), range(X.shape[1] - 8)):
-                                filtered_image[i, j] = np.sum(X[i:i+3, j:j+9] * color_kernels[kernel_name])
-                            return filtered_image # a 2-D Array
+                            with_resize = False
+                    if with_resize == False:
+                        filtered_image = self.__color_scale_implementation(X, kernel_name)
+                        return filtered_image
                 else:
                     raise ValueError(f'Expected 3 axes and 3 channels but got {len(X.shape)} axes and {X.shape[2]} channels!')
             except:
@@ -348,4 +368,5 @@ class ApplyKernels():
         """
         plt.figure(figsize=figsize)
         plt.imshow(image, cmap=cmap)
+        plt.tight_layout()
 
