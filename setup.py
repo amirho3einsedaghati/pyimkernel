@@ -34,7 +34,7 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
-        'Topic :: Scientific/Engineering :: Image Preprocessing'
+        'Topic :: Scientific/Engineering'       
     ],
     keywords=['image kernels/filters', 'image preprocessing', 'Applying image kernels/filters on a grayscale or color scale image']
 )
