@@ -17,7 +17,7 @@ setup(
     author='Amir Hosein Sedaghati',
     author_email='amirhosseinsedaghati42@gmail.com',
     maintainer_contact='https://linktr.ee/amirhoseinsedaghati',
-    Requires='Python >=3.6'
+    Requires='Python >=3.6',
     classifiers=[
     'Development Status :: 5 - Production/Stable',
     'Environment :: Console',
@@ -27,5 +27,5 @@ setup(
     'Programming Language :: Python :: 3 :: Only Python :: 3.6 :: 3.7 :: 3.8 :: 3.9 :: 3.10 :: 3.11',
     'Topic :: Scientific/Engineering :: Image Preprocessing'
     ],
-    keywords=['image kernels/filters', 'image preprocessing', 'Applying image kernels/filters on a grayscale or color scale image'],
+    keywords=['image kernels/filters', 'image preprocessing', 'Applying image kernels/filters on a grayscale or color scale image']
 )
