@@ -1,4 +1,9 @@
 # Pyimkernel
+[![License: MIT](https://img.shields.io/github/license/amirho3einsedaghati/pyimkernel?color=yellow)](https://github.com/amirho3einsedaghati/pyimkernel/blob/main/LICENSE)
+[![GitHub repo size](https://img.shields.io/github/repo-size/amirho3einsedaghati/pyimkernel?color=red)](https://github.com/amirho3einsedaghati/pyimkernel/)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/amirho3einsedaghati/pyimkernel?color=yellow)](https://github.com/amirho3einsedaghati/pyimkernel/pulls)
+[![GitHub issues](https://img.shields.io/github/issues-raw/amirho3einsedaghati/pyimkernel?color=red)](https://github.com/amirho3einsedaghati/pyimkernel/issues)
+
 <p>
 With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The list of image kernels is mentioned below) on a grayscale or color image, and show images using the class ApplyKernels in this package to reach a wide range of effects and enhancements in digital images.
 </p>
@@ -13,6 +18,7 @@ pip install pyimkernel
 from pyimkernel import ApplyKernels
 import mnist
 import cv2
+import os
 
 # Load data
 X_train, X_test, y_train, y_test = mnist.train_images(), mnist.test_images(), mnist.train_labels(), mnist.test_labels()
@@ -32,7 +38,7 @@ imkernel.imshow(image=filtered_image, cmap='gray')
 
 # Color Scale
 # Read the flower image
-image1 = cv2.imread('examples/Images/1.jpg')
+image1 = cv2.imread(os.path.join('Images', '1.jpg'))
 
 # Show the flower image
 imkernel.imshow(image1.reshape(image1.shape[0], -1), cmap='gray', figsize=(20, 10))
