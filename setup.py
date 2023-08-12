@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
     f.close()
-    
+
 setup(
     name='pyimkernel',
     version='0.5.1',
@@ -19,13 +19,22 @@ setup(
     maintainer_contact='https://linktr.ee/amirhoseinsedaghati',
     Requires='Python >=3.6',
     classifiers=[
-    'Development Status :: 5 - Production/Stable',
-    'Environment :: Console',
-    'Intended Audience :: Developers :: Education',
-    'License :: OSI Approved :: MIT License',
-    'Operating System :: MacOS :: NT :: POSIX :: UNIX',
-    'Programming Language :: Python :: 3 :: Only Python :: 3.6 :: 3.7 :: 3.8 :: 3.9 :: 3.10 :: 3.11',
-    'Topic :: Scientific/Engineering :: Image Preprocessing'
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Education',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: MacOS',
+        'Operating System :: POSIX',
+        'Operating System :: Unix',
+        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Topic :: Scientific/Engineering :: Image Preprocessing'
     ],
     keywords=['image kernels/filters', 'image preprocessing', 'Applying image kernels/filters on a grayscale or color scale image']
 )
