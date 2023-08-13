@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name='pyimkernel',
-    version='0.5.3',
+    version='0.6.0',
     packages=find_packages(exclude=['tests*', 'examples*']),
     license='MIT',
     description='Applying some image kernel(s) on an image',
