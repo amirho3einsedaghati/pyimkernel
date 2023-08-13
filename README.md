@@ -5,7 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/amirho3einsedaghati/pyimkernel?color=red)](https://github.com/amirho3einsedaghati/pyimkernel/issues)
 
 <p>
-With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The list of image kernels is mentioned below) on a grayscale or color image, and show images using the class ApplyKernels in this package to reach a wide range of effects and enhancements in digital images.
+With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The list of image kernels is mentioned below) on a grayscale or color scale image, and then show them. All of these happens using the "ApplyKernels" class to reach a wide range of effects and enhancements in digital images.
 </p>
 
 ## Installation
