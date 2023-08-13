@@ -192,14 +192,14 @@ class ApplyKernels():
         Methods:
         - apply_filter_on_gray_img: Apply some kernel(s) on a grayscale image.
         - apply_filter_on_color_img: Apply some kernel(s) on a color scale image.
-        - __color_scale_implementation: It is a private method. It's used for applying filter(s) on an image.
-        - imshow: Show the input image
+        - __implementation: It is a private method. It's used for applying filter(s) on a grayscle or color scale image.
+        - imshow: Show the input image.
     """
     def __init__(self, random_seed:int=42):
         self.random_seed = random_seed
 
 
-    def apply_filter_on_gray_img(self, X, kernel_name:str='all'):
+    def apply_filter_on_gray_img(self, X, kernel_name='all'):
         """
         Apply some kernel(s) on a grayscale image.
             
@@ -209,7 +209,7 @@ class ApplyKernels():
         - X: 2-D array 
             The grayscale image on which the filter(s) will be apply.
             
-        - kernel_name: str, default='all'
+        - kernel_name: str or list, default='all'
         The list of valid kernels:
         'blur' : The blur kernel applies a smoothing effect, averaging the pixel values in the neighborhood.
         'bottom sobel' : The bottom sobel kernel emphasizes edges in the bottom directions.
@@ -239,53 +239,63 @@ class ApplyKernels():
         `numpy.ndarray`(a 2-D Array), Dict, or error message
         """
         np.random.seed(self.random_seed)  
-        if len(X.shape) == 2: 
-            if kernel_name.lower() == 'all':
-                filtered_images = {}
-                for k_name, k_arr in gray_kernels.items():
-                    filtered_image = np.zeros(X.shape)
-                    for i, j in product(range(X.shape[0] - 2), range(X.shape[1] - 2)):
-                        filtered_image[i, j] = np.sum(X[i:i+3, j:j+3] * k_arr)
-                    filtered_images[k_name] = filtered_image
-                return filtered_images # a Dictionary of various filters of an image 
-
-            elif not kernel_name.lower() in gray_kernels.keys():
-                raise ValueError(f'There is no kernel named {kernel_name}. Please read the Docstring')
-
-            else:
-                filtered_image = np.zeros(X.shape)
-                for i, j in product(range(X.shape[0] - 2), range(X.shape[1] - 2)):
-                    filtered_image[i, j] = np.sum(X[i:i+3, j:j+3] * gray_kernels[kernel_name])
-                return filtered_image # a 2-D Array
+        filtered_image = self.__implementation(X, kernel_name, gray_kernels, (2,3), (2, 3))
+        if type(filtered_image) == int and filtered_image == 0:
+            raise ValueError(f'Expected 2 axes, but got {len(X.shape)}!')
         else:
-            raise ValueError(f'Expected 2 axes, but got {len(X.shape)} axes.')
+            return filtered_image
 
 
-    def __color_scale_implementation(slef, X, kernel_name):
+    def __implementation(slef, X, kernel_name, kernels:dict, rows_diff:tuple, cols_diff:tuple):
         """
         It's used for applying filter(s) on an image. So, It returns a filtered image
         """
         if len(X.shape) == 2: 
-            if kernel_name.lower() == 'all':
+            if type(kernel_name) == list:
+                if len(kernel_name) != 0:
+                    try:
+                        k_name = kernel_name[0].lower()
+                    except:
+                        raise AttributeError(f'{type(kernel_name[0])} object has no attribute `lower`')
+                    else:
+                        del k_name
+                        k_names = [k_name.lower() for k_name in kernel_name if k_name.lower() in kernels.keys()] 
+                        if len(k_names) == 0:
+                            raise ValueError('There is no valid kernel name. For more info, please read the Docstring :)')
+                        elif len(k_names) == 1:
+                            kernel_name = k_names[0]
+                        else:
+                            filtered_images = {}
+                            for k_name in k_names:
+                                filtered_image = np.zeros(X.shape)
+                                for i, j in product(range(X.shape[0] - rows_diff[0]), range(X.shape[1] - cols_diff[0])):
+                                    filtered_image[i, j] = np.sum(X[i:i+rows_diff[1], j:j+cols_diff[1]] * kernels[k_name])
+                                filtered_images[k_name] = filtered_image
+                            return filtered_images # a Dictionary of various filters of an image 
+                else:
+                    raise ValueError('There is no item in the kernel_name parameter')
+                
+            if type(kernel_name) == str and kernel_name.lower() == 'all':
                 filtered_images = {}
-                for k_name, k_arr in color_kernels.items():
+                for k_name, k_arr in kernels.items():
                     filtered_image = np.zeros(X.shape)
-                    for i, j in product(range(X.shape[0] - 2), range(X.shape[1] - 8)):
-                        filtered_image[i, j] = np.sum(X[i:i+3, j:j+9] * k_arr)
+                    for i, j in product(range(X.shape[0] - rows_diff[0]), range(X.shape[1] - cols_diff[0])):
+                        filtered_image[i, j] = np.sum(X[i:i+rows_diff[1], j:j+cols_diff[1]] * k_arr)
                     filtered_images[k_name] = filtered_image
                 return filtered_images # a Dictionary of various filters of an image 
-
-            elif not kernel_name.lower() in color_kernels.keys():
-                raise ValueError(f'There is no kernel named {kernel_name}. Please read the Docstring :)')
-
-            else:
+            
+            elif type(kernel_name) == str and kernel_name.lower() in kernels.keys():
                 filtered_image = np.zeros(X.shape)
-                for i, j in product(range(X.shape[0] - 2), range(X.shape[1] - 8)):
-                    filtered_image[i, j] = np.sum(X[i:i+3, j:j+9] * color_kernels[kernel_name])
+                for i, j in product(range(X.shape[0] - rows_diff[0]), range(X.shape[1] - cols_diff[0])):
+                    filtered_image[i, j] = np.sum(X[i:i+rows_diff[1], j:j+cols_diff[1]] * kernels[kernel_name])
                 return filtered_image # a 2-D Array
 
+            else:
+                raise KeyError(f'There is no kernel named {kernel_name}. For more info, please read the Docstring :)')
+        else:
+            return 0
 
-    def apply_filter_on_color_img(self, X, kernel_name:str='all', with_resize:bool=False):
+    def apply_filter_on_color_img(self, X, kernel_name='all', with_resize:bool=False):
         """
         Apply some kernel(s) on a color scale image.
             
@@ -295,7 +305,7 @@ class ApplyKernels():
         - X: 2-D array
             The color scale image on which the filter(s) will be apply.
             
-        - kernel_name: str, default='all'
+        - kernel_name: str or list, default='all'
         The list of valid kernels:
         'blur' : The blur kernel applies a smoothing effect, averaging the pixel values in the neighborhood.
         'bottom sobel' : The bottom sobel kernel emphasizes edges in the bottom directions.
@@ -320,6 +330,7 @@ class ApplyKernels():
         'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provide more weight to the central pixel and its immediate neighbors.
         
         - with_resize: bool, default=False
+            To improve the speed of rendering matrices, You can use this parameter.
             1. if the number of rows and columns in the input image are bigger than 400 pixels, and you assign True to the with_resize parameter, the number of rows and columns will change to 400 pixels and the kernel(s) will be apply on this image.
             2. if the number of rows and columns in the input image are smaller than 400 pixels, and you assign True/False to the with_resize parameter, the number of rows and columns won't change. So, the kernel(s) will be apply on the input image.
 
@@ -330,20 +341,21 @@ class ApplyKernels():
         try: 
             axis2_val = X.shape[2]
         except:
-            raise IndexError(f'Expected 3 channels but got 0!')
+            raise IndexError(f'Expected 3 axes but got {len(X.shape)}!')
         else:
+            del axis2_val
             if X.shape[2] == 3 and len(X.shape) == 3:
                 np.random.seed(self.random_seed)  
                 X = X.reshape(X.shape[0], -1) # convert to a 2-D array
                 if with_resize == True:
                     if X.shape[0] > 400 or X.shape[1] > 400:
                         X = cv2.resize(X, (400, 400))
-                        filtered_image = self.__color_scale_implementation(X, kernel_name)
+                        filtered_image = self.__implementation(X, kernel_name, color_kernels, (2, 3), (8, 9))
                         return filtered_image
                     else:
                         with_resize = False
                 if with_resize == False:
-                    filtered_image = self.__color_scale_implementation(X, kernel_name)
+                    filtered_image = self.__implementation(X, kernel_name, color_kernels, (2,3), (8, 9))
                     return filtered_image
             else:
                 raise ValueError(f'Expected 3 axes and 3 channels but got {len(X.shape)} axes and {X.shape[2]} channels!')
