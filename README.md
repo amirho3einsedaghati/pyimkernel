@@ -16,7 +16,7 @@ pip install pyimkernel
 ## Usage
 ```python
 from pyimkernel import ApplyKernels
-import mnist
+import mnist # pip install mnist
 import cv2
 import os
 
