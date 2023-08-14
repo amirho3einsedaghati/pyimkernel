@@ -199,53 +199,6 @@ class ApplyKernels():
         self.random_seed = random_seed
 
 
-    def apply_filter_on_gray_img(self, X, kernel_name='all'):
-        """
-        Apply some kernel(s) on a grayscale image.
-            
-            
-        Parameters:
-        ------------
-        - X: 2-D array 
-            The grayscale image on which the filter(s) will be apply.
-            
-        - kernel_name: str or list, default='all'
-        The list of valid kernels:
-        'blur' : The blur kernel applies a smoothing effect, averaging the pixel values in the neighborhood.
-        'bottom sobel' : The bottom sobel kernel emphasizes edges in the bottom directions.
-        'emboss' : The emboss kernel creates a 3D embossed effect in the image.
-        'identity' : The identity kernel does not modify the image and leaves it unchanged.
-        'left sobel' : The left sobel kernel emphasizes edges in the left directions.
-        'outline' : The outline kernel detects edges and boundaries by emphasizing the differences in intensity between neighboring pixels.
-        'right sobel' : The right sobel kernel emphasizes edges in the right directions.
-        'sharpen' : The sharpen kernel enhances edges and details in an image. 
-        'top sobel' : The top sobel kernel emphasizes edges in the top directions.
-        'horizontal edge' : The horizontal edge kernel highlights horizontal edges.
-        'vertical edge' : The vertical edge kernel highlights vertical edges.
-        'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for all neighboring pixels.
-        'laplacian' : The Laplacian kernel is used for edge detection and image sharpening.
-        'prewitt horizontal edge' : The prewitt horizontal edge kernel is similar to the bottom sobel kernel, emphasizing edges in the horizontal directions.
-        'prewitt vertical edge' : The prewitt vertical edge kernel is similar to the right sobel kernel, emphasizing edges in the horizontal directions.
-        'high-pass filter' : The high-pass filter kernel enhances the details and edges in an image while reducing the low-frequency components.
-        'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version of the image from the original.
-        'dilate' : The dilate kernel is used in morphological operations such as dilation, which expands regions of bright pixels in an image.
-        'soften' : The soften kernel is used to reduce image noise and create a smoother appearance while preserving overall image details.
-        'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provide more weight to the central pixel and its immediate neighbors.	
-        'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provide more weight to the central pixel and its immediate neighbors.
-        
-        
-        Returns:
-        ------------
-        `numpy.ndarray`(a 2-D Array), Dict, or error message
-        """
-        np.random.seed(self.random_seed)  
-        filtered_image = self.__implementation(X, kernel_name, gray_kernels, (2,3), (2, 3))
-        if type(filtered_image) == int and filtered_image == 0:
-            raise ValueError(f'Expected 2 axes, but got {len(X.shape)}!')
-        else:
-            return filtered_image
-
-
     def __implementation(slef, X, kernel_name, kernels:dict, rows_diff:tuple, cols_diff:tuple):
         """
         It's used for applying filter(s) on an image. So, It returns a filtered image
@@ -291,9 +244,66 @@ class ApplyKernels():
                 return filtered_image # a 2-D Array
 
             else:
-                raise KeyError(f'There is no kernel named {kernel_name}. For more info, please read the Docstring :)')
+                if type(kernel_name) == tuple:
+                    raise TypeError(f'kernel_name must be a string or list, Not {type(kernel_name)}. For more info, Please read the Docstring :)')
+                else:
+                    raise KeyError(f'There is no kernel named {kernel_name}. For more info, please read the Docstring :)')
         else:
             return 0
+        
+
+    def apply_filter_on_gray_img(self, X:np.ndarray, kernel_name='all'):
+        """
+        Apply some kernel(s) on a grayscale image.
+            
+            
+        Parameters:
+        ------------
+        - X: `numpy.ndarray` (a 2-D array) 
+            The grayscale image on which the filter(s) will be apply.
+            
+        - kernel_name: str or list, default='all'
+        The list of valid kernels:
+        'blur' : The blur kernel applies a smoothing effect, averaging the pixel values in the neighborhood.
+        'bottom sobel' : The bottom sobel kernel emphasizes edges in the bottom directions.
+        'emboss' : The emboss kernel creates a 3D embossed effect in the image.
+        'identity' : The identity kernel does not modify the image and leaves it unchanged.
+        'left sobel' : The left sobel kernel emphasizes edges in the left directions.
+        'outline' : The outline kernel detects edges and boundaries by emphasizing the differences in intensity between neighboring pixels.
+        'right sobel' : The right sobel kernel emphasizes edges in the right directions.
+        'sharpen' : The sharpen kernel enhances edges and details in an image. 
+        'top sobel' : The top sobel kernel emphasizes edges in the top directions.
+        'horizontal edge' : The horizontal edge kernel highlights horizontal edges.
+        'vertical edge' : The vertical edge kernel highlights vertical edges.
+        'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for all neighboring pixels.
+        'laplacian' : The Laplacian kernel is used for edge detection and image sharpening.
+        'prewitt horizontal edge' : The prewitt horizontal edge kernel is similar to the bottom sobel kernel, emphasizing edges in the horizontal directions.
+        'prewitt vertical edge' : The prewitt vertical edge kernel is similar to the right sobel kernel, emphasizing edges in the horizontal directions.
+        'high-pass filter' : The high-pass filter kernel enhances the details and edges in an image while reducing the low-frequency components.
+        'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version of the image from the original.
+        'dilate' : The dilate kernel is used in morphological operations such as dilation, which expands regions of bright pixels in an image.
+        'soften' : The soften kernel is used to reduce image noise and create a smoother appearance while preserving overall image details.
+        'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provide more weight to the central pixel and its immediate neighbors.	
+        'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provide more weight to the central pixel and its immediate neighbors.
+        
+        
+        Returns:
+        ------------
+        `numpy.ndarray`(a 2-D Array), Dict, or error message
+        """
+        if type(X) == np.ndarray:
+            if type(kernel_name) == str or type(kernel_name) == list:
+                np.random.seed(self.random_seed)  
+                filtered_image = self.__implementation(X, kernel_name, gray_kernels, (2,3), (2, 3))
+                if type(filtered_image) == int and filtered_image == 0:
+                    raise ValueError(f'Expected 2 axes, but got {len(X.shape)}!')
+                else:
+                    return filtered_image
+            else:
+                raise TypeError(f'kernel_name must be a string or list, Not {type(kernel_name)}. For more info, Please read the Docstring :)')
+        else:
+            raise TypeError(f'X must be array-like, Not {type(X)}. For more info, Please read the Docstring :)')
+
 
     def apply_filter_on_color_img(self, X, kernel_name='all', with_resize:bool=False):
         """
@@ -302,7 +312,7 @@ class ApplyKernels():
             
         Parameters:
         ------------
-        - X: 2-D array
+        - X: array-like like (499, 635, 3)
             The color scale image on which the filter(s) will be apply.
             
         - kernel_name: str or list, default='all'
@@ -338,27 +348,33 @@ class ApplyKernels():
         ------------
         `numpy.ndarray`(a 2-D Array), Dict, or error message
         """
-        try: 
-            axis2_val = X.shape[2]
-        except:
-            raise IndexError(f'Expected 3 axes but got {len(X.shape)}!')
-        else:
-            del axis2_val
-            if X.shape[2] == 3 and len(X.shape) == 3:
-                np.random.seed(self.random_seed)  
-                X = X.reshape(X.shape[0], -1) # convert to a 2-D array
-                if with_resize == True:
-                    if X.shape[0] > 400 or X.shape[1] > 400:
-                        X = cv2.resize(X, (400, 400))
-                        filtered_image = self.__implementation(X, kernel_name, color_kernels, (2, 3), (8, 9))
-                        return filtered_image
+        if type(X) == np.ndarray:
+            if type(kernel_name) == str or type(kernel_name) == list:
+                try: 
+                    axis2_val = X.shape[2]
+                except:
+                    raise IndexError(f'Expected 3 axes but got {len(X.shape)}!')
+                else:
+                    del axis2_val
+                    if X.shape[2] == 3 and len(X.shape) == 3:
+                        np.random.seed(self.random_seed)  
+                        X = X.reshape(X.shape[0], -1) # convert the input array to a 2-D array
+                        if with_resize == True:
+                            if X.shape[0] > 400 or X.shape[1] > 400:
+                                X = cv2.resize(X, (400, 400))
+                                filtered_image = self.__implementation(X, kernel_name, color_kernels, (2, 3), (8, 9))
+                                return filtered_image
+                            else:
+                                with_resize = False
+                        if with_resize == False:
+                            filtered_image = self.__implementation(X, kernel_name, color_kernels, (2,3), (8, 9))
+                            return filtered_image
                     else:
-                        with_resize = False
-                if with_resize == False:
-                    filtered_image = self.__implementation(X, kernel_name, color_kernels, (2,3), (8, 9))
-                    return filtered_image
+                        raise ValueError(f'Expected 3 axes and 3 channels but got {len(X.shape)} axes and {X.shape[2]} channels!')
             else:
-                raise ValueError(f'Expected 3 axes and 3 channels but got {len(X.shape)} axes and {X.shape[2]} channels!')
+                raise TypeError(f'kernel_name must be a string or list, Not {type(kernel_name)}. For more info, Please read the Docstring :)')
+        else:
+            raise TypeError(f'X must be array-like, Not {type(X)}. For more info, Please read the Docstring :)')
     
 
     def imshow(self, image, figsize:tuple=(5, 5), cmap=None):
