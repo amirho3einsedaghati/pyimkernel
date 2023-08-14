@@ -1,4 +1,4 @@
-# (!)pip install pyimkernel
+# pip install pyimkernel
 import unittest
 from pyimkernel import ApplyKernels
 import mnist
@@ -20,18 +20,22 @@ class TestApplyKernels(unittest.TestCase):
     def setUpClass(self):
         print('setUpClass Done\n')
         
+
     @classmethod
     def tearDownClass(self):
         print('tearDownClass Done')
         
+
     def setUp(self):
         print('setUp Done')
         
+
     def tearDown(self):
         print('tearDown Done\n')
         
+
     def test_apply_filter_on_gray_img(self): # Test method 1
-        print('test_apply_filter_on_gray_img Done')
+        print('test_apply_filter_on_gray_img Passed')
         self.assertEqual(type(imkernel.apply_filter_on_gray_img(X=X_train[0], kernel_name='blur')), np.ndarray)
         self.assertEqual(type(imkernel.apply_filter_on_gray_img(X=X_train[0], kernel_name='all')), dict)
         self.assertEqual(type(imkernel.apply_filter_on_gray_img(X=X_train[0], kernel_name=['blur', 'Laplacian'])), dict)
@@ -40,9 +44,13 @@ class TestApplyKernels(unittest.TestCase):
         self.assertRaises(ValueError, imkernel.apply_filter_on_gray_img, X_train[0], ['blure', 'Laplasian'])
         self.assertRaises(ValueError, imkernel.apply_filter_on_gray_img, X_train[0], [])
         self.assertRaises(ValueError, imkernel.apply_filter_on_gray_img, np.array([1, 2, 3]), 'blur')
+        self.assertRaises(TypeError, imkernel.apply_filter_on_gray_img, X_train[0], ('blur',))
+        self.assertRaises(TypeError, imkernel.apply_filter_on_gray_img, X_train[0], tuple([1, 2, 3]))
+        self.assertRaises(TypeError, imkernel.apply_filter_on_gray_img, ['blur'], 'blur')
+
 
     def test_apply_filter_on_color_img(self): # Test method 2
-        print('test_apply_filter_on_color_img Done')
+        print('test_apply_filter_on_color_img Passed')
         self.assertRaises(IndexError, imkernel.apply_filter_on_color_img, X_train[0], 'blur')
         self.assertRaises(IndexError, imkernel.apply_filter_on_color_img, np.array([1, 2, 3]), 'blur')
         self.assertRaises(ValueError, imkernel.apply_filter_on_color_img, X_train, 'blur')
@@ -50,12 +58,16 @@ class TestApplyKernels(unittest.TestCase):
         self.assertRaises(AttributeError, imkernel.apply_filter_on_color_img, flower_img, [1, 2])
         self.assertRaises(ValueError, imkernel.apply_filter_on_color_img, flower_img, ['blure', 'Laplasian'])
         self.assertRaises(ValueError, imkernel.apply_filter_on_color_img, flower_img, [])
+        self.assertRaises(TypeError, imkernel.apply_filter_on_color_img, flower_img, ('blur',))
+        self.assertRaises(TypeError, imkernel.apply_filter_on_color_img, flower_img, tuple([1, 2, 3]))
+        self.assertRaises(TypeError, imkernel.apply_filter_on_color_img, ['blur'], 'blur')
         self.assertEqual(type(imkernel.apply_filter_on_color_img(flower_img)), dict)
         self.assertEqual(type(imkernel.apply_filter_on_color_img(X=flower_img, kernel_name=['blur', 'Laplacian'])), dict)
         self.assertEqual(type(imkernel.apply_filter_on_color_img(flower_img, kernel_name='laplacian', with_resize=True)), np.ndarray)
-        
+
+
     def test_imshow(self): # Test method 3
-        print('test_imshow Done')
+        print('test_imshow Passed')
         # Grayscale Image
         imkernel.imshow(image=imkernel.apply_filter_on_gray_img(X_train[0], kernel_name='blur'), cmap=plt.cm.gray)
         g_figure = plt.get_fignums()
