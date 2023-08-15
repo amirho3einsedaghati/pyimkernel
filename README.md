@@ -5,7 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/amirho3einsedaghati/pyimkernel?color=red)](https://github.com/amirho3einsedaghati/pyimkernel/issues)
 
 <p>
-With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The list of image kernels is mentioned below) on a grayscale or color scale image, and then show them. All of these happens using the "ApplyKernels" class to reach a wide range of effects and enhancements in digital images.
+With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The list of image kernels is mentioned below) on a grayscale or color-scale image, and then show them. All of these happens using the "ApplyKernels" class to reach a wide range of effects and enhancements in digital images.
 </p>
 
 ## Installation
@@ -36,7 +36,7 @@ filtered_image = imkernel.apply_filter_on_gray_img(X_train[19], kernel_name='blu
 # Show the filtered image 9
 imkernel.imshow(image=filtered_image, cmap='gray')
 
-# Color Scale
+# the Color-Scale image
 # Read the flower image
 image1 = cv2.imread(os.path.join('Images', '1.jpg'))
 
@@ -44,10 +44,11 @@ image1 = cv2.imread(os.path.join('Images', '1.jpg'))
 imkernel.imshow(image1.reshape(image1.shape[0], -1), cmap='gray', figsize=(20, 10))
 
 # Show the filtered flower image
-imkernel.imshow(image=imkernel.apply_filter_on_color_img(image1, kernel_name='laplacian', with_resize=True),
-                figsize=(7, 6), cmap='gray')
+blurred_image = imkernel.apply_filter_on_color_img(image1, kernel_name='motion blur', with_resize=True)
+imkernel.imshow(image=imkernel.apply_filter_on_gray_img(blurred_image, kernel_name='sharpen'),
+                figsize=(7, 6), cmap=plt.cm.gray)
 ```
-## Grayscale Output
+## The Grayscale Output
 <b>Before</b> Applying the blur kernel on a grayscale image 9
 <img src="https://i.postimg.cc/Bn8nRVyY/image9.png">
 <br /><br/>
@@ -57,14 +58,14 @@ imkernel.imshow(image=imkernel.apply_filter_on_color_img(image1, kernel_name='la
 <img src="https://i.postimg.cc/qBWrzxvS/filtered-image9.png">
 <br /><br/>
 
-## Color Scale Output
-<b>Before</b> Applying the laplacian kernel on a color scale flower image
+## The Color Scale Output
+<b>Before</b> Applying the laplacian kernel on a color-scale flower image
 <img src="https://i.postimg.cc/B66PbRQk/flower.png">
 <br /><br/>
 
 
-<b>After</b> Applying the laplacian kernel on a color scale flower image and assigning True to the with_resize parameter
-<img src="https://i.postimg.cc/dtHstDTs/filtered-flower.png">
+<b>After</b> Applying the Sharpen Kernel on a filtered color-scale image using the Motion Blur Kernel and assigning True to the with_resize parameter
+<img src="https://i.postimg.cc/x19P8V2B/filtered-flower.png">
 <br /><br/>
 
 ## Image kernels
@@ -91,4 +92,9 @@ imkernel.imshow(image=imkernel.apply_filter_on_color_img(image1, kernel_name='la
 - soften
 - scharr horizontal edge
 - scharr vertical edge
+- motion blur
 
+<br /><br/>
+<p>
+All Tests Passed.
+</p>
