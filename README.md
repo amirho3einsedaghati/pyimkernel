@@ -41,31 +41,35 @@ imkernel.imshow(image=filtered_image, cmap='gray')
 image1 = cv2.imread(os.path.join('Images', '1.jpg'))
 
 # Show the flower image
-imkernel.imshow(image1.reshape(image1.shape[0], -1), cmap='gray', figsize=(20, 10))
+imkernel.imshow(cv2.cvtColor(image1, cv2.COLOR_BGRA2GRAY), cmap='gray', figsize=(6, 6))
 
 # Show the filtered flower image
-blurred_image = imkernel.apply_filter_on_color_img(image1, kernel_name='motion blur', with_resize=True)
+blurred_image = imkernel.apply_filter_on_color_img(image1, kernel_name='motion blur', with_resize=True) # return a grayscale image
+imkernel.imshow(image=blurred_image, figsize=(6, 6), cmap=plt.cm.gray)
+
 imkernel.imshow(image=imkernel.apply_filter_on_gray_img(blurred_image, kernel_name='sharpen'),
-                figsize=(7, 6), cmap=plt.cm.gray)
+                figsize=(6, 6), cmap=plt.cm.gray)
 ```
 ## The Grayscale Output
-<b>Before</b> Applying the blur kernel on a grayscale image 9
-<img src="https://i.postimg.cc/Bn8nRVyY/image9.png">
+<b>Before</b> Applying the Blur Kernel on a grayscale image 9
+<img src="https://i.postimg.cc/m23gBQW3/image9.png">
 <br /><br/>
 
-
-<b>After</b> Applying the blur kernel on a grayscale image 9
-<img src="https://i.postimg.cc/qBWrzxvS/filtered-image9.png">
+<b>After</b> Applying the Blur Kernel on a grayscale image 9
+<img src="https://i.postimg.cc/BvPWQ01W/filtered-image9.png">
 <br /><br/>
 
 ## The Color Scale Output
-<b>Before</b> Applying the laplacian kernel on a color-scale flower image
-<img src="https://i.postimg.cc/B66PbRQk/flower.png">
+<b>Before</b> Applying kernels on a color-scale flower image
+<img src="https://i.postimg.cc/QMGm1GyZ/flower.png">
 <br /><br/>
 
+<b>After</b> Applying the Motion Blur Kernel on a color-scale flower image and assigning True to the with_resize parameter
+<img src="https://i.postimg.cc/SxJx0jkk/filtered-flower1.png">
+<br /><br/>
 
-<b>After</b> Applying the Sharpen Kernel on a filtered color-scale image using the Motion Blur Kernel and assigning True to the with_resize parameter
-<img src="https://i.postimg.cc/x19P8V2B/filtered-flower.png">
+<b>After</b> Applying the Sharpen Kernel on a filtered color-scale image using the Motion Blur Kernel
+<img src="https://i.postimg.cc/Z5B47gxq/filtered-flower2.png">
 <br /><br/>
 
 ## Image kernels
@@ -94,7 +98,6 @@ imkernel.imshow(image=imkernel.apply_filter_on_gray_img(blurred_image, kernel_na
 - scharr vertical edge
 - motion blur
 
-<br /><br/>
 <p>
 All Tests Passed.
 </p>
