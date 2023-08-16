@@ -183,7 +183,7 @@ class ApplyKernels():
         Parameters:
         ------------
         - X: `numpy.ndarray` (a 2-D array) 
-            The grayscale image on which the filter(s) will be apply.
+            The grayscale image on which the filter(s) will be applied.
             
         - kernel_name: str or list, default='all'
         The list of valid kernels:
@@ -237,7 +237,7 @@ class ApplyKernels():
         Parameters:
         ------------
         - X: array-like for example (499, 635, 3)
-            The color-scale image on which the filter(s) will be apply.
+            The color-scale image on which the filter(s) will be applied.
             
         - kernel_name: str or list, default='all'
         The list of valid kernels:
@@ -267,9 +267,8 @@ class ApplyKernels():
         
         - with_resize: bool, default=False
             To improve the speed of rendering matrices, You can use this parameter.
-            note: Assigning the True value to the with_resize parameter results in a grayscale image, but Assigning the False value to the with_resize parameter results in a color-scale image.
-            1. if the number of rows and columns in the input image are bigger than 400 pixels, and you assign True to the with_resize parameter, the number of rows and columns will change to 400 pixels and the kernel(s) will be apply on this image.
-            2. if the number of rows and columns in the input image are smaller than 400 pixels, and you assign True/False to the with_resize parameter, the number of rows and columns won't change. So, the kernel(s) will be apply on the input image.
+            1. If the number of pixels in the height and width of an input image is bigger than 400 pixels, and If you have assigned True to the with_resize parameter, The number of pixels will change to `[mu(X) + 3*sigma(X)]` in height, and `[mu(X) + 2*sigma(X)]` in width.
+            2. If the number of pixels in the height and width of an input image is equal to or smaller than 400 pixels, and If you have assigned True or False to the with_resize parameter, The number of pixels won't change.
 
         Returns:
         ------------
