@@ -5,8 +5,34 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/amirho3einsedaghati/pyimkernel?color=red)](https://github.com/amirho3einsedaghati/pyimkernel/issues)
 
 <p>
-With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The list of image kernels is mentioned below) on a grayscale or color-scale image, and then show them. All of these happens using the "ApplyKernels" class to reach a wide range of effects and enhancements in digital images.
+With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The list of image kernels is mentioned below) on a grayscale or color-scale image, and then show them. These effects and enhancements in digital images can be achieved using the "ApplyKernels" class, allowing for a wide range of transformations.
 </p>
+
+## Image kernels
+<b> Image kernels are listed below:</b>
+
+- blur
+- bottom sobel
+- emboss
+- identity
+- left sobel
+- outline
+- right sobel
+- sharpen
+- top sobel
+- horizontal edge
+- vertical edge
+- box blur
+- laplacian
+- prewitt horizontal edge
+- prewitt vertical edge
+- high-pass filter
+- unsharp masking
+- dilate
+- soften
+- scharr horizontal edge
+- scharr vertical edge
+- motion blur
 
 ## Installation
 <pre>
@@ -68,36 +94,12 @@ imkernel.imshow(image=imkernel.apply_filter_on_gray_img(blurred_image, kernel_na
 <img src="https://i.postimg.cc/SxJx0jkk/filtered-flower1.png">
 <br /><br/>
 
-<b>After</b> Applying the Sharpen Kernel on a filtered color-scale image using the Motion Blur Kernel
+<b>After</b> Applying the Sharpen Kernel on a color-scale image which was filtered using the Motion Blur Kernel before
 <img src="https://i.postimg.cc/Z5B47gxq/filtered-flower2.png">
 <br /><br/>
 
-## Image kernels
-<b> Image kernels are listed below:</b>
-
-- blur
-- bottom sobel
-- emboss
-- identity
-- left sobel
-- outline
-- right sobel
-- sharpen
-- top sobel
-- horizontal edge
-- vertical edge
-- box blur
-- laplacian
-- prewitt horizontal edge
-- prewitt vertical edge
-- high-pass filter
-- unsharp masking
-- dilate
-- soften
-- scharr horizontal edge
-- scharr vertical edge
-- motion blur
-
 <p>
 All Tests Passed.
+<br /><br/>
+<a href="https://linktr.ee/amirhoseinsedaghati">Maintainer Contact</a>
 </p>
