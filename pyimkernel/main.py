@@ -130,7 +130,7 @@ class ApplyKernels():
 
     def __implementation(self, X, kernel_name):
         """
-        It's used for applying filter(s) on an image using the private method __get_filter_image. So, It returns a filtered image
+        It's used for applying filter(s) on an image using the private method __get_filter_image. So, It returns a filtered image or a dictionary of filtered images
         """
         if len(X.shape) == 2: 
             if type(kernel_name) == list:
@@ -285,19 +285,17 @@ class ApplyKernels():
                     del axis2_val
                     if X.shape[2] == 3 and len(X.shape) == 3:
                         np.random.seed(self.random_seed)  
-                        X = X.reshape(X.shape[0], -1) # convert the input array to a 2-D array
+                        X = cv2.cvtColor(X, cv2.COLOR_RGBA2GRAY) # convert a color-scale image to a grayscale one
                         if with_resize == True:
                             if X.shape[0] > 400 and X.shape[1] > 400:
-                                X = cv2.resize(X, (400, 400))
+                                X = cv2.resize(X, (round(np.mean(X) + np.std(X) * 3), round(np.mean(X) + np.std(X) * 2)))
                                 filtered_image = self.__implementation(X, kernel_name)
                                 return filtered_image # a grayscale image or a dictioary of grayscale images
                             else:
                                 with_resize = False
                         if with_resize == False:
                             filtered_image = self.__implementation(X, kernel_name)
-                            if type(filtered_image) == np.ndarray:
-                                filtered_image.reshape(filtered_image.shape[0], filtered_image.shape[1] // 3, 3)
-                            return filtered_image # a color-scale image or a dictioary of grayscale images
+                            return filtered_image # a grayscale image or a dictioary of grayscale images
                     else:
                         raise ValueError(f'Expected 3 axes and 3 channels but got {len(X.shape)} axes and {X.shape[2]} channels!')
             else:
@@ -322,7 +320,9 @@ class ApplyKernels():
         - cmap: str or `~matplotlib.colors.Colormap`, default: :rc:`image.cmap`
             It maps scalar data to colors.
         """
+
         plt.figure(figsize=figsize)
         plt.imshow(image, cmap=cmap)
+        plt.axis('off')
         plt.tight_layout()
 
