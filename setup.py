@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name='pyimkernel',
-    version='0.7.3',
+    version='0.7.4',
     packages=find_packages(exclude=['tests*', 'examples*']),
     license='MIT',
     description='Applying some image kernel(s) on a grayscale or color scale image',
@@ -16,7 +16,7 @@ setup(
     url='https://github.com/amirho3einsedaghati/pyimkernel',
     author='Amir Hosein Sedaghati',
     author_email='amirhosseinsedaghati42@gmail.com',
-    maintainer_contact='https://linktr.ee/amirhoseinsedaghati',
+    #maintainer_contact='https://linktr.ee/amirhoseinsedaghati',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
