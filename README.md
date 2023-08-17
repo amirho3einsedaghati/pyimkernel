@@ -5,7 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/amirho3einsedaghati/pyimkernel?color=red)](https://github.com/amirho3einsedaghati/pyimkernel/issues)
 
 <p>
-With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The list of image kernels is mentioned below) on a grayscale or color-scale image, and then show them. These effects and enhancements in digital images can be achieved using the "ApplyKernels" class, allowing for a wide range of transformations.
+With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The comprehensive list of image kernels is mentioned below) on a grayscale or color-scale image, and then show them. These effects and enhancements in digital images can be achieved using the "ApplyKernels" class, allowing for a wide range of transformations.
 </p>
 
 ## Image kernels
@@ -67,6 +67,7 @@ imkernel.imshow(image=filtered_image, cmap='gray')
 image1 = cv2.imread(os.path.join('Images', '1.jpg'))
 
 # Show the flower image
+# Convert a color-scale image to a grayscale one and then visualize it
 imkernel.imshow(cv2.cvtColor(image1, cv2.COLOR_BGRA2GRAY), cmap='gray', figsize=(6, 6))
 
 # Show the filtered flower image
@@ -86,7 +87,7 @@ imkernel.imshow(image=imkernel.apply_filter_on_gray_img(blurred_image, kernel_na
 <br /><br/>
 
 ## The Color Scale Output
-<b>Before</b> Applying kernels on a color-scale flower image
+<b>Before</b> Applying the Motion Blur Kernel on a color-scale flower image
 <img src="https://i.postimg.cc/QMGm1GyZ/flower.png">
 <br /><br/>
 
@@ -98,8 +99,8 @@ imkernel.imshow(image=imkernel.apply_filter_on_gray_img(blurred_image, kernel_na
 <img src="https://i.postimg.cc/Z5B47gxq/filtered-flower2.png">
 <br /><br/>
 
-<p>
+## Package Status
 All Tests Passed.
-<br /><br/>
-<a href="https://linktr.ee/amirhoseinsedaghati">Maintainer Contact</a>
-</p>
+
+## Maintainer Contact
+<a href="https://linktr.ee/amirhoseinsedaghati">Link</a>
