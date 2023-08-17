@@ -114,7 +114,7 @@ class ApplyKernels():
         self.random_seed = random_seed
 
 
-    def __get_filter_image(self, X, kernel_name):
+    def __get_filtered_image(self, X, kernel_name):
         filtered_image = np.zeros(X.shape)
         for i, j in product(range(X.shape[0]), range(X.shape[1])):
             if i <= 25 and j <= 25:
@@ -130,7 +130,7 @@ class ApplyKernels():
 
     def __implementation(self, X, kernel_name):
         """
-        It's used for applying filter(s) on an image using the private method __get_filter_image. So, It returns a filtered image or a dictionary of filtered images
+        It's used for applying filter(s) on an image using the private method __get_filtered_image. So, It returns a filtered image or a dictionary of filtered images
         """
         if len(X.shape) == 2: 
             if type(kernel_name) == list:
@@ -149,7 +149,7 @@ class ApplyKernels():
                         else:
                             filtered_images = {}
                             for k_name in k_names:
-                                filtered_image = self.__get_filter_image(X, k_name)
+                                filtered_image = self.__get_filtered_image(X, k_name)
                                 filtered_images[k_name] = filtered_image
                             return filtered_images # a dictionary of various filters of an image 
                 else:
@@ -158,12 +158,12 @@ class ApplyKernels():
             if type(kernel_name) == str and kernel_name.lower() == 'all':
                 filtered_images = {}
                 for k_name in kernels.keys():
-                    filtered_image = self.__get_filter_image(X, k_name)
+                    filtered_image = self.__get_filtered_image(X, k_name)
                     filtered_images[k_name] = filtered_image
                 return filtered_images # a dictionary of various filters of an image 
             
             elif type(kernel_name) == str and kernel_name.lower() in kernels.keys():
-                filtered_image = self.__get_filter_image(X, kernel_name)
+                filtered_image = self.__get_filtered_image(X, kernel_name)
                 return filtered_image # a 2-D Array
 
             else:
@@ -198,17 +198,23 @@ class ApplyKernels():
         'top sobel' : The top sobel kernel emphasizes edges in the top directions.
         'horizontal edge' : The horizontal edge kernel highlights horizontal edges.
         'vertical edge' : The vertical edge kernel highlights vertical edges.
-        'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for all neighboring pixels.
+        'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for
+         all neighboring pixels.
         'laplacian' : The Laplacian kernel is used for edge detection and image sharpening.
         'prewitt horizontal edge' : The prewitt horizontal edge kernel is similar to the bottom sobel kernel, emphasizing edges in the horizontal directions.
         'prewitt vertical edge' : The prewitt vertical edge kernel is similar to the right sobel kernel, emphasizing edges in the horizontal directions.
         'high-pass filter' : The high-pass filter kernel enhances the details and edges in an image while reducing the low-frequency components.
-        'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version of the image from the original.
+        'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version
+         of the image from the original.
         'dilate' : The dilate kernel is used in morphological operations such as dilation, which expands regions of bright pixels in an image.
         'soften' : The soften kernel is used to reduce image noise and create a smoother appearance while preserving overall image details.
-        'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provide more weight to the central pixel and its immediate neighbors.	
-        'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provide more weight to the central pixel and its immediate neighbors.
-        'motion blur' : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction. The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere. When convolved with the image, it creates streak-like blurs that mimic the appearance of objects in motion.
+        'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides
+         more weight to the central pixel and its immediate neighbors.	
+        'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides
+         more weight to the central pixel and its immediate neighbors.
+        'motion blur' : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction.
+         The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere. When convolved with the image, it creates streak-like
+         blurs that mimic the appearance of objects in motion.
         
 
         Returns:
@@ -252,17 +258,23 @@ class ApplyKernels():
         'top sobel' : The top sobel kernel emphasizes edges in the top directions.
         'horizontal edge' : The horizontal edge kernel highlights horizontal edges.
         'vertical edge' : The vertical edge kernel highlights vertical edges.
-        'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for all neighboring pixels.
+        'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for
+         all neighboring pixels.
         'laplacian' : The Laplacian kernel is used for edge detection and image sharpening.
         'prewitt horizontal edge' : The prewitt horizontal edge kernel is similar to the bottom sobel kernel, emphasizing edges in the horizontal directions.
         'prewitt vertical edge' : The prewitt vertical edge kernel is similar to the right sobel kernel, emphasizing edges in the horizontal directions.
         'high-pass filter' : The high-pass filter kernel enhances the details and edges in an image while reducing the low-frequency components.
-        'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version of the image from the original.
+        'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version
+         of the image from the original.
         'dilate' : The dilate kernel is used in morphological operations such as dilation, which expands regions of bright pixels in an image.
         'soften' : The soften kernel is used to reduce image noise and create a smoother appearance while preserving overall image details.
-        'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provide more weight to the central pixel and its immediate neighbors.	
-        'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provide more weight to the central pixel and its immediate neighbors.
-        'motion blur' : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction. The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere. When convolved with the image, it creates streak-like blurs that mimic the appearance of objects in motion.
+        'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides
+         more weight to the central pixel and its immediate neighbors.	
+        'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides
+         more weight to the central pixel and its immediate neighbors.
+        'motion blur' : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction.
+         The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere. When convolved with the image, it creates streak-like
+         blurs that mimic the appearance of objects in motion.
         
         
         - with_resize: bool, default=False
