@@ -81,30 +81,28 @@ imkernel.imshow(image=imkernel.apply_filter_on_color_img(sharpened_image, kernel
                 figsize=(6, 6))
 ```
 ## The Grayscale Output
-<b>Before</b> Applying the Blur Kernel on a grayscale image 9
+<p><b>Before</b> Applying the Blur Kernel on a grayscale image 9</p>
 <img src="https://i.postimg.cc/m23gBQW3/image9.png">
 <br /><br/>
 
-<b>After</b> Applying the Blur Kernel on a grayscale image 9
+<p><b>After</b> Applying the Blur Kernel on a grayscale image 9</p>
 <img src="https://i.postimg.cc/BvPWQ01W/filtered-image9.png">
-<br /><br/>
 
 ## The Color Scale Output
-<b>Before</b> Applying the Box Blur Kernel on a color-scale flower image
+<p><b>Before</b> Applying the Box Blur Kernel on a color-scale flower image</p>
 <img src="https://i.postimg.cc/QMGm1GyZ/flower.png">
 <br /><br/>
 
-<b>After</b> Applying the Box Blur Kernel on a color-scale flower image and assigning True to the with_resize parameter and (100, 100) to the dsize parameter
+<p><b>After</b> Applying the Box Blur Kernel on a color-scale flower image and assigning True to the with_resize parameter and (100, 100) to the dsize parameter</p>
 <img src="https://i.postimg.cc/fWByFZ8V/filtered-flower3.png">
 <br /><br/>
 
-<b>After</b> Applying the Sharpen Kernel on a color-scale flower image and assigning True to the with_resize parameter and 'auto' to the dsize parameter
+<p><b>After</b> Applying the Sharpen Kernel on a color-scale flower image and assigning True to the with_resize parameter and 'auto' to the dsize parameter</p>
 <img src="https://i.postimg.cc/3NCRJQTc/filtered-flower1.png">
 <br /><br/>
 
-<b>After</b> Applying the Soften Kernel on a color-scale image, which was filtered using the Sharpen Blur Kernel before, and assigning True to the with_resize parameter
+<p><b>After</b> Applying the Soften Kernel on a color-scale image, which was filtered using the Sharpen Blur Kernel before, and assigning True to the with_resize parameter</p>
 <img src="https://i.postimg.cc/KvjSYyx3/filtered-flower2.png">
-<br /><br/>
 
 ## Package Status
 All Tests Passed.
