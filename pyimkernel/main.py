@@ -115,7 +115,7 @@ class ApplyKernels():
 
 
     def __get_filtered_image(self, X, kernel_name):
-        filtered_image = np.zeros(X.shape)
+        filtered_image = np.zeros(X.shape, dtype=np.uint8)
         for i, j in product(range(X.shape[0]), range(X.shape[1])):
             if i <= 25 and j <= 25:
                 filtered_image[i, j] = np.sum(X[i : i+3, j : j+3] * kernels[kernel_name])
@@ -198,28 +198,22 @@ class ApplyKernels():
         'top sobel' : The top sobel kernel emphasizes edges in the top directions.
         'horizontal edge' : The horizontal edge kernel highlights horizontal edges.
         'vertical edge' : The vertical edge kernel highlights vertical edges.
-        'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for
-         all neighboring pixels.
+        'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for all neighboring pixels.
         'laplacian' : The Laplacian kernel is used for edge detection and image sharpening.
         'prewitt horizontal edge' : The prewitt horizontal edge kernel is similar to the bottom sobel kernel, emphasizing edges in the horizontal directions.
         'prewitt vertical edge' : The prewitt vertical edge kernel is similar to the right sobel kernel, emphasizing edges in the horizontal directions.
         'high-pass filter' : The high-pass filter kernel enhances the details and edges in an image while reducing the low-frequency components.
-        'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version
-         of the image from the original.
+        'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version of the image from the original.
         'dilate' : The dilate kernel is used in morphological operations such as dilation, which expands regions of bright pixels in an image.
         'soften' : The soften kernel is used to reduce image noise and create a smoother appearance while preserving overall image details.
-        'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides
-         more weight to the central pixel and its immediate neighbors.	
-        'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides
-         more weight to the central pixel and its immediate neighbors.
-        'motion blur' : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction.
-         The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere. When convolved with the image, it creates streak-like
-         blurs that mimic the appearance of objects in motion.
+        'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides more weight to the central pixel and its immediate neighbors.	
+        'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides more weight to the central pixel and its immediate neighbors.
+        'motion blur' : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction. The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere.
         
 
         Returns:
         ------------
-        `numpy.ndarray`(a 2-D Array), Dict, or error message
+        `numpy.ndarray`(a 2-D Array), Dict
         """
         if type(X) == np.ndarray:
             if type(kernel_name) == str or type(kernel_name) == list:
@@ -228,16 +222,16 @@ class ApplyKernels():
                 if type(filtered_image) == int and filtered_image == 0:
                     raise ValueError(f'Expected 2 axes, but got {len(X.shape)}!')
                 else:
-                    return filtered_image
+                    return filtered_image # a grayscale image or a dictioary of grayscale images
             else:
                 raise TypeError(f'kernel_name must be a string or list, Not {type(kernel_name)}. For more info, Please read the Docstring :)')
         else:
             raise TypeError(f'X must be array-like, Not {type(X)}. For more info, Please read the Docstring :)')
 
 
-    def apply_filter_on_color_img(self, X, kernel_name='all', with_resize:bool=False):
+    def apply_filter_on_color_img(self, X, kernel_name='all', with_resize:bool=False, dsize='auto'):
         """
-        Apply some kernel(s) on a color-scale image.
+        Apply some kernel(s) on a RGB color-scale image.
             
             
         Parameters:
@@ -258,33 +252,30 @@ class ApplyKernels():
         'top sobel' : The top sobel kernel emphasizes edges in the top directions.
         'horizontal edge' : The horizontal edge kernel highlights horizontal edges.
         'vertical edge' : The vertical edge kernel highlights vertical edges.
-        'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for
-         all neighboring pixels.
+        'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for all neighboring pixels.
         'laplacian' : The Laplacian kernel is used for edge detection and image sharpening.
         'prewitt horizontal edge' : The prewitt horizontal edge kernel is similar to the bottom sobel kernel, emphasizing edges in the horizontal directions.
         'prewitt vertical edge' : The prewitt vertical edge kernel is similar to the right sobel kernel, emphasizing edges in the horizontal directions.
         'high-pass filter' : The high-pass filter kernel enhances the details and edges in an image while reducing the low-frequency components.
-        'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version
-         of the image from the original.
+        'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version of the image from the original.
         'dilate' : The dilate kernel is used in morphological operations such as dilation, which expands regions of bright pixels in an image.
         'soften' : The soften kernel is used to reduce image noise and create a smoother appearance while preserving overall image details.
-        'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides
-         more weight to the central pixel and its immediate neighbors.	
-        'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides
-         more weight to the central pixel and its immediate neighbors.
-        'motion blur' : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction.
-         The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere. When convolved with the image, it creates streak-like
-         blurs that mimic the appearance of objects in motion.
-        
+        'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides more weight to the central pixel and its immediate neighbors.	
+        'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides more weight to the central pixel and its immediate neighbors.
+        'motion blur' : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction. The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere.
         
         - with_resize: bool, default=False
             To improve the speed of rendering matrices, You can use this parameter.
             1. If the number of pixels in the height and width of an input image is bigger than 400 pixels, and If you have assigned True to the with_resize parameter, The number of pixels will change to `[mu(X) + 3*sigma(X)]` in height, and `[mu(X) + 2*sigma(X)]` in width.
             2. If the number of pixels in the height and width of an input image is equal to or smaller than 400 pixels, and If you have assigned True or False to the with_resize parameter, The number of pixels won't change.
 
+        - disze: str or tuple, default='auto'
+            If the value of dsize is 'auto', It will use the formula `[mu(X) + 3*sigma(X)]` to change the number of pixels in height, and use `[mu(X) + 2*sigma(X)]` to change the number of pixels in width.
+            If the type of dsize is tuple and contains 2 integer values, It will use disze[0] to change the number of pixels in height, and use disze[1] to change the numebr of pixels in width.
+
         Returns:
         ------------
-        `numpy.ndarray`(a 2-D Array), Dict, or error message
+        `numpy.ndarray`(a 2-D Array), Dict
         """
         if type(X) == np.ndarray:
             if type(kernel_name) == str or type(kernel_name) == list:
@@ -296,17 +287,37 @@ class ApplyKernels():
                     del axis2_val
                     if X.shape[2] == 3 and len(X.shape) == 3:
                         np.random.seed(self.random_seed)  
-                        X = cv2.cvtColor(X, cv2.COLOR_RGBA2GRAY) # convert a color-scale image to a grayscale one
+                        X = cv2.cvtColor(X, cv2.COLOR_BGRA2GRAY) # convert a color-scale image to a grayscale one
                         if with_resize == True:
-                            if X.shape[0] > 400 and X.shape[1] > 400:
-                                X = cv2.resize(X, (round(np.mean(X) + np.std(X) * 3), round(np.mean(X) + np.std(X) * 2)))
-                                filtered_image = self.__implementation(X, kernel_name)
-                                return filtered_image # a grayscale image or a dictioary of grayscale images
+                            if type(dsize) == str:
+                                if dsize == 'auto':
+                                    if X.shape[0] > 400 and X.shape[1] > 400:
+                                        X = cv2.resize(X, (round(np.mean(X) + np.std(X) * 3), round(np.mean(X) + np.std(X) * 2)))
+                                        filtered_image = self.__implementation(X, kernel_name)
+                                        converted_image = self.__gray2color(filtered_image)
+                                        return converted_image # a color-scale image or a dictioary of color-scale images
+                                    else:
+                                        with_resize = False
+                                else:
+                                    raise ValueError('desize can only be `auto` in the string format')
+                            elif type(dsize) == tuple:
+                                if len(dsize) == 2:
+                                    if type(dsize[0]) == int and type(dsize[1]) == int:
+                                        X = cv2.resize(X, dsize)
+                                        filtered_image = self.__implementation(X, kernel_name)
+                                        converted_image = self.__gray2color(filtered_image)
+                                        return converted_image # a color-scale image or a dictioary of color-scale images
+                                    else:
+                                        raise TypeError('dsize must be a tuple and contains 2 integer values')
+                                else:
+                                    raise ValueError(f'Expected a tuple with length 2, Not {len(dsize)}!')
                             else:
-                                with_resize = False
+                                raise TypeError(f'dsize must be a string or tuple, Not {type(dsize)} with value {dsize}. For mor info, Please read the Docstring :)')
+                            
                         if with_resize == False:
                             filtered_image = self.__implementation(X, kernel_name)
-                            return filtered_image # a grayscale image or a dictioary of grayscale images
+                            converted_image = self.__gray2color(filtered_image)
+                            return converted_image # a color-scale image or a dictioary of color-scale images
                     else:
                         raise ValueError(f'Expected 3 axes and 3 channels but got {len(X.shape)} axes and {X.shape[2]} channels!')
             else:
@@ -314,6 +325,29 @@ class ApplyKernels():
         else:
             raise TypeError(f'X must be array-like, Not {type(X)}. For more info, Please read the Docstring :)')
     
+
+    def __gray2color(self, X):
+        """
+        Convert a grayscale image to color-scale one.
+        """
+        converted_images = {}
+
+        def get_color_im(X):
+            color_im = np.zeros((X.shape[0], X.shape[1], 3), dtype=np.uint8)
+            if type(X) == np.ndarray and len(X.shape) == 2:
+                for i in range(3):
+                    color_im[:, :, i] = X
+                return color_im
+            
+        if type(X) == np.ndarray and len(X.shape) == 2:
+            return get_color_im(X)
+        elif type(X) == dict:
+            for k_name, k_vals in X.items():
+                converted_images[k_name] = get_color_im(k_vals)
+            return converted_images
+        else:
+            raise ValueError(f'X must be an array or dictionary, Not {type(X)}!')
+
 
     def imshow(self, image, figsize:tuple=(5, 5), cmap=None):
         """
@@ -331,7 +365,6 @@ class ApplyKernels():
         - cmap: str or `~matplotlib.colors.Colormap`, default: :rc:`image.cmap`
             It maps scalar data to colors.
         """
-
         plt.figure(figsize=figsize)
         plt.imshow(image, cmap=cmap)
         plt.axis('off')
