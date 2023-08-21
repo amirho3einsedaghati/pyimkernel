@@ -6,10 +6,10 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name='pyimkernel',
-    version='0.8.0',
+    version='0.8.1',
     packages=find_packages(exclude=['tests*', 'examples*']),
     license='MIT',
-    description='Applying some image kernel(s) on a grayscale or color scale image',
+    description='Applying some image kernel(s) on a grayscale or RGB color-scale image',
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=['numpy', 'matplotlib', 'opencv-python'],
