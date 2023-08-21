@@ -5,7 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/amirho3einsedaghati/pyimkernel?color=red)](https://github.com/amirho3einsedaghati/pyimkernel/issues)
 
 <p>
-With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The comprehensive list of image kernels is mentioned below) on a grayscale or color-scale image, and then show them. These effects and enhancements in digital images can be achieved using the "ApplyKernels" class, allowing for a wide range of transformations.
+With this package, You can apply various image kernels such as Blur, Sobel, Scharr and so forth (The comprehensive list of image kernels is mentioned below) on a grayscale or RGB color-scale image, and then show them. These effects and enhancements in digital images can be achieved using the "ApplyKernels" class, allowing for a wide range of transformations.
 </p>
 
 ## Image kernels
@@ -101,11 +101,11 @@ imkernel.imshow(image=imkernel.apply_filter_on_color_img(sharpened_image, kernel
 <img src="https://i.postimg.cc/3NCRJQTc/filtered-flower1.png">
 <br /><br/>
 
-<p><b>After</b> Applying the Soften Kernel on a color-scale image, which was filtered using the Sharpen Blur Kernel before, and assigning True to the with_resize parameter</p>
+<p><b>After</b> Applying the Soften Kernel on a color-scale image, which was filtered using the Sharpen Blur Kernel before, and assigning False to the with_resize parameter</p>
 <img src="https://i.postimg.cc/KvjSYyx3/filtered-flower2.png">
 
 ## Package Status
 All Tests Passed.
 
 ## Maintainer Contact
-<a href="https://linktr.ee/amirhoseinsedaghati">Link</a>
+<a href="https://linktr.ee/amirhoseinsedaghati">Links</a>
