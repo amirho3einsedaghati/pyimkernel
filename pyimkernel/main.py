@@ -107,7 +107,7 @@ class ApplyKernels():
 
         Methods:
         - apply_filter_on_gray_img: Apply some kernel(s) on a grayscale image.
-        - apply_filter_on_color_img: Apply some kernel(s) on a color-scale image.
+        - apply_filter_on_color_img: Apply some kernel(s) on a RGB color-scale image.
         - imshow: Show the input image.
     """
     def __init__(self, random_seed:int=42):
@@ -270,6 +270,7 @@ class ApplyKernels():
             2. If the number of pixels in the height and width of an input image is equal to or smaller than 400 pixels, and If you have assigned True or False to the with_resize parameter, The number of pixels won't change.
 
         - disze: str or tuple, default='auto'
+            You can use this parameter to resize the dimensions of an image when you are assigning the True value to the with_resize parameter.
             If the value of dsize is 'auto', It will use the formula `[mu(X) + 3*sigma(X)]` to change the number of pixels in height, and use `[mu(X) + 2*sigma(X)]` to change the number of pixels in width.
             If the type of dsize is tuple and contains 2 integer values, It will use disze[0] to change the number of pixels in height, and use disze[1] to change the numebr of pixels in width.
 
