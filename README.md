@@ -1,6 +1,8 @@
 # Pyimkernel
 [![License: MIT](https://img.shields.io/github/license/amirho3einsedaghati/pyimkernel?color=yellow)](https://github.com/amirho3einsedaghati/pyimkernel/blob/main/LICENSE)
 [![GitHub repo size](https://img.shields.io/github/repo-size/amirho3einsedaghati/pyimkernel?color=red)](https://github.com/amirho3einsedaghati/pyimkernel/)
+![GitHub forks](https://img.shields.io/github/forks/amirho3einsedaghati/pyimkernel?color=yellow)
+![GitHub User's stars](https://img.shields.io/github/stars/amirho3einsedaghati/pyimkernel?color=red)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/amirho3einsedaghati/pyimkernel?color=yellow)](https://github.com/amirho3einsedaghati/pyimkernel/pulls)
 [![GitHub issues](https://img.shields.io/github/issues-raw/amirho3einsedaghati/pyimkernel?color=red)](https://github.com/amirho3einsedaghati/pyimkernel/issues)
 
