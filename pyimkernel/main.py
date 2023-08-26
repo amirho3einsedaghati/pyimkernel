@@ -360,7 +360,7 @@ class ApplyKernels():
         - image: array-like or PIL image
             The image data
         
-        - figsize: tuple, default=(10, 10)
+        - figsize: tuple, default=(5, 5)
             The figure size
         
         - cmap: str or `~matplotlib.colors.Colormap`, default: :rc:`image.cmap`
