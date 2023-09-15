@@ -1,3 +1,4 @@
+# The dependencies of the python application
 numpy
 matplotlib
 opencv-python
