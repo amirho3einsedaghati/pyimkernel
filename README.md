@@ -69,18 +69,17 @@ imkernel.imshow(image=filtered_image, cmap='gray')
 image1 = cv2.imread(os.path.join('Images', '1.jpg'))
 
 # Show the flower image
-# Convert a color-scale image to a grayscale one and then visualize it
-imkernel.imshow(cv2.cvtColor(image1, cv2.COLOR_BGRA2GRAY), cmap='gray', figsize=(6, 6))
+imkernel.imshow(cv2.cvtColor(image1, cv2.COLOR_BGR2RGB), figsize=(6, 6))
 
 # Show the filtered flower image
 blurred_image = imkernel.apply_filter_on_color_img(image1, kernel_name='box blur', with_resize=True, dsize=(100, 100))
-imkernel.imshow(image=blurred_image)
+imkernel.imshow(image=cv2.cvtColor(blurred_image, cv2.COLOR_BGR2RGB))
 
 sharpened_image = imkernel.apply_filter_on_color_img(image1, kernel_name='sharpen', with_resize=True)
-imkernel.imshow(image=sharpened_image, figsize=(6, 6))
+imkernel.imshow(image=cv2.cvtColor(sharpened_image, cv2.COLOR_BGR2RGB), figsize=(6, 6))
 
-imkernel.imshow(image=imkernel.apply_filter_on_color_img(sharpened_image, kernel_name='soften'),
-                figsize=(6, 6))
+imkernel.imshow(image=cv2.cvtColor(imkernel.apply_filter_on_color_img(sharpened_image, kernel_name='soften'),
+                                   cv2.COLOR_BGR2RGB), figsize=(6, 6))
 ```
 ## The Grayscale Output
 <p><b>Before</b> Applying the Blur Kernel on a grayscale image 9</p>
@@ -92,22 +91,22 @@ imkernel.imshow(image=imkernel.apply_filter_on_color_img(sharpened_image, kernel
 
 ## The Color Scale Output
 <p><b>Before</b> Applying the Box Blur Kernel on a color-scale flower image</p>
-<img src="https://i.postimg.cc/QMGm1GyZ/flower.png">
+<img src="https://i.postimg.cc/QMbYm1fk/flower.png">
 <br /><br/>
 
 <p><b>After</b> Applying the Box Blur Kernel on a color-scale flower image and assigning True to the with_resize parameter and (100, 100) to the dsize parameter</p>
-<img src="https://i.postimg.cc/fWByFZ8V/filtered-flower3.png">
+<img src="https://i.postimg.cc/8kh4mhsF/filtered-flower1.png">
 <br /><br/>
 
 <p><b>After</b> Applying the Sharpen Kernel on a color-scale flower image and assigning True to the with_resize parameter and 'auto' to the dsize parameter</p>
-<img src="https://i.postimg.cc/3NCRJQTc/filtered-flower1.png">
+<img src="https://i.postimg.cc/mDdHmgx5/filtered-flower2.png">
 <br /><br/>
 
 <p><b>After</b> Applying the Soften Kernel on a color-scale image, which was filtered using the Sharpen Blur Kernel before, and assigning False to the with_resize parameter</p>
-<img src="https://i.postimg.cc/KvjSYyx3/filtered-flower2.png">
+<img src="https://i.postimg.cc/vTCdykxv/filtered-flower3.png">
 
 ## Package Status
-All Tests Passed.
+All Tests Passed Successfully.
 
 ## Maintainer Contact
 <a href="https://linktr.ee/amirhoseinsedaghati">Links</a>
