@@ -5,7 +5,7 @@ import cv2
 
 
 kernels = {
-    'blur' : np.array([[0.0625, 0.125, 0.0625], # guassian blur
+    'blur' : np.array([[0.0625, 0.125, 0.0625], # or guassian blur
                        [0.125,  0.25,  0.125],
                        [0.0625, 0.125, 0.0625]]),
         
@@ -116,42 +116,68 @@ class ApplyKernels():
 
     def __get_filtered_image(self, X, kernel_name):
         filtered_image = np.zeros(X.shape, dtype=np.uint8)
-        for i, j in product(range(X.shape[0]), range(X.shape[1])):
-            if i <= 25 and j <= 25:
-                filtered_image[i, j] = np.sum(X[i : i+3, j : j+3] * kernels[kernel_name])
-            if i > 25 and j <= 25:
-                filtered_image[i, j] = np.sum(X[(i + 1)-3 : i+1, j : j+3] * kernels[kernel_name])
-            if j > 25 and i <= 25:
-                filtered_image[i, j] = np.sum(X[i : i+3, (j + 1)-3 : j+1] * kernels[kernel_name])
-            if i > 25 and j > 25:
-                filtered_image[i, j] = np.sum(X[(i + 1)-3 : i+1, (j + 1)-3 : j+1] * kernels[kernel_name])
-        return filtered_image
+        if len(filtered_image.shape) == 2:
+            for i, j in product(range(X.shape[0]), range(X.shape[1])):
+                if i <= 25 and j <= 25:
+                    filtered_image[i, j] = np.sum(X[i : i+3, j : j+3] * kernels[kernel_name])
+
+                if i > 25 and j <= 25:
+                    filtered_image[i, j] = np.sum(X[(i + 1)-3 : i+1, j : j+3] * kernels[kernel_name])
+
+                if j > 25 and i <= 25:
+                    filtered_image[i, j] = np.sum(X[i : i+3, (j + 1)-3 : j+1] * kernels[kernel_name])
+
+                if i > 25 and j > 25:
+                    filtered_image[i, j] = np.sum(X[(i + 1)-3 : i+1, (j + 1)-3 : j+1] * kernels[kernel_name])
+
+            return filtered_image
+        
+        else:
+            for i, j, k in product(range(X.shape[0]), range(X.shape[1]), range(X.shape[2])):
+                if i <= 25 and j <= 25:
+                    filtered_image[i, j, k] = np.sum(X[i : i+3, j : j+3, k] * kernels[kernel_name])
+
+                if i > 25 and j <= 25:
+                    filtered_image[i, j, k] = np.sum(X[(i + 1)-3 : i+1, j : j+3, k] * kernels[kernel_name])
+
+                if j > 25 and i <= 25:
+                    filtered_image[i, j, k] = np.sum(X[i : i+3, (j + 1)-3 : j+1, k] * kernels[kernel_name])
+
+                if i > 25 and j > 25:
+                    filtered_image[i, j, k] = np.sum(X[(i + 1)-3 : i+1, (j + 1)-3 : j+1, k] * kernels[kernel_name])
+
+            return filtered_image
 
 
     def __implementation(self, X, kernel_name):
         """
         It's used for applying filter(s) on an image using the private method __get_filtered_image. So, It returns a filtered image or a dictionary of filtered images
         """
-        if len(X.shape) == 2: 
+        if len(X.shape) == 2 or len(X.shape) == 3: 
             if type(kernel_name) == list:
                 if len(kernel_name) != 0:
                     try:
                         k_name = kernel_name[0].lower()
+
                     except:
                         raise AttributeError(f'{type(kernel_name[0])} object has no attribute `lower`')
+                    
                     else:
                         del k_name
                         k_names = [k_name.lower() for k_name in kernel_name if k_name.lower() in kernels.keys()] 
                         if len(k_names) == 0:
                             raise ValueError('There is no valid kernel name. For more info, please read the Docstring :)')
+                        
                         elif len(k_names) == 1:
                             kernel_name = k_names[0]
+
                         else:
                             filtered_images = {}
                             for k_name in k_names:
                                 filtered_image = self.__get_filtered_image(X, k_name)
                                 filtered_images[k_name] = filtered_image
                             return filtered_images # a dictionary of various filters of an image 
+                        
                 else:
                     raise ValueError('There is no item in the kernel_name parameter')
                 
@@ -169,6 +195,7 @@ class ApplyKernels():
             else:
                 if type(kernel_name) == tuple:
                     raise TypeError(f'kernel_name must be a string or list, Not {type(kernel_name)}. For more info, Please read the Docstring :)')
+                
                 else:
                     raise KeyError(f'There is no kernel named {kernel_name}. For more info, please read the Docstring :)')
         else:
@@ -219,12 +246,16 @@ class ApplyKernels():
             if type(kernel_name) == str or type(kernel_name) == list:
                 np.random.seed(self.random_seed)  
                 filtered_image = self.__implementation(X, kernel_name)
+
                 if type(filtered_image) == int and filtered_image == 0:
                     raise ValueError(f'Expected 2 axes, but got {len(X.shape)}!')
+                
                 else:
                     return filtered_image # a grayscale image or a dictioary of grayscale images
+                
             else:
                 raise TypeError(f'kernel_name must be a string or list, Not {type(kernel_name)}. For more info, Please read the Docstring :)')
+            
         else:
             raise TypeError(f'X must be array-like, Not {type(X)}. For more info, Please read the Docstring :)')
 
@@ -282,72 +313,52 @@ class ApplyKernels():
             if type(kernel_name) == str or type(kernel_name) == list:
                 try: 
                     axis2_val = X.shape[2]
+                    
                 except:
                     raise IndexError(f'Expected 3 axes but got {len(X.shape)}!')
+                
                 else:
                     del axis2_val
                     if X.shape[2] == 3 and len(X.shape) == 3:
                         np.random.seed(self.random_seed)  
-                        X = cv2.cvtColor(X, cv2.COLOR_BGRA2GRAY) # convert a color-scale image to a grayscale one
                         if with_resize == True:
                             if type(dsize) == str:
                                 if dsize == 'auto':
                                     if X.shape[0] > 400 and X.shape[1] > 400:
                                         X = cv2.resize(X, (round(np.mean(X) + np.std(X) * 3), round(np.mean(X) + np.std(X) * 2)))
                                         filtered_image = self.__implementation(X, kernel_name)
-                                        converted_image = self.__gray2color(filtered_image)
-                                        return converted_image # a color-scale image or a dictioary of color-scale images
+                                        return filtered_image # a color-scale image or a dictioary of color-scale images
                                     else:
                                         with_resize = False
                                 else:
                                     raise ValueError('desize can only be `auto` in the string format')
+                                
                             elif type(dsize) == tuple:
                                 if len(dsize) == 2:
                                     if type(dsize[0]) == int and type(dsize[1]) == int:
                                         X = cv2.resize(X, dsize)
                                         filtered_image = self.__implementation(X, kernel_name)
-                                        converted_image = self.__gray2color(filtered_image)
-                                        return converted_image # a color-scale image or a dictioary of color-scale images
+                                        return filtered_image # a color-scale image or a dictioary of color-scale images
                                     else:
                                         raise TypeError('dsize must be a tuple and contains 2 integer values')
                                 else:
                                     raise ValueError(f'Expected a tuple with length 2, Not {len(dsize)}!')
+                                
                             else:
                                 raise TypeError(f'dsize must be a string or tuple, Not {type(dsize)} with value {dsize}. For mor info, Please read the Docstring :)')
                             
                         if with_resize == False:
                             filtered_image = self.__implementation(X, kernel_name)
-                            converted_image = self.__gray2color(filtered_image)
-                            return converted_image # a color-scale image or a dictioary of color-scale images
+                            return filtered_image # a color-scale image or a dictioary of color-scale images
+                        
                     else:
                         raise ValueError(f'Expected 3 axes and 3 channels but got {len(X.shape)} axes and {X.shape[2]} channels!')
+                    
             else:
                 raise TypeError(f'kernel_name must be a string or list, Not {type(kernel_name)}. For more info, Please read the Docstring :)')
+            
         else:
             raise TypeError(f'X must be array-like, Not {type(X)}. For more info, Please read the Docstring :)')
-    
-
-    def __gray2color(self, X):
-        """
-        Convert a grayscale image to color-scale one.
-        """
-        converted_images = {}
-
-        def get_color_im(X):
-            color_im = np.zeros((X.shape[0], X.shape[1], 3), dtype=np.uint8)
-            if type(X) == np.ndarray and len(X.shape) == 2:
-                for i in range(3):
-                    color_im[:, :, i] = X
-                return color_im
-            
-        if type(X) == np.ndarray and len(X.shape) == 2:
-            return get_color_im(X)
-        elif type(X) == dict:
-            for k_name, k_vals in X.items():
-                converted_images[k_name] = get_color_im(k_vals)
-            return converted_images
-        else:
-            raise ValueError(f'X must be an array or dictionary, Not {type(X)}!')
 
 
     def imshow(self, image, figsize:tuple=(5, 5), cmap=None):
