@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from itertools import product
 import cv2
 
 
@@ -115,38 +114,8 @@ class ApplyKernels():
 
 
     def __get_filtered_image(self, X, kernel_name):
-        filtered_image = np.zeros(X.shape, dtype=np.uint8)
-        if len(filtered_image.shape) == 2:
-            for i, j in product(range(X.shape[0]), range(X.shape[1])):
-                if i <= 25 and j <= 25:
-                    filtered_image[i, j] = np.sum(X[i : i+3, j : j+3] * kernels[kernel_name])
-
-                if i > 25 and j <= 25:
-                    filtered_image[i, j] = np.sum(X[(i + 1)-3 : i+1, j : j+3] * kernels[kernel_name])
-
-                if j > 25 and i <= 25:
-                    filtered_image[i, j] = np.sum(X[i : i+3, (j + 1)-3 : j+1] * kernels[kernel_name])
-
-                if i > 25 and j > 25:
-                    filtered_image[i, j] = np.sum(X[(i + 1)-3 : i+1, (j + 1)-3 : j+1] * kernels[kernel_name])
-
-            return filtered_image
-        
-        else:
-            for i, j, k in product(range(X.shape[0]), range(X.shape[1]), range(X.shape[2])):
-                if i <= 25 and j <= 25:
-                    filtered_image[i, j, k] = np.sum(X[i : i+3, j : j+3, k] * kernels[kernel_name])
-
-                if i > 25 and j <= 25:
-                    filtered_image[i, j, k] = np.sum(X[(i + 1)-3 : i+1, j : j+3, k] * kernels[kernel_name])
-
-                if j > 25 and i <= 25:
-                    filtered_image[i, j, k] = np.sum(X[i : i+3, (j + 1)-3 : j+1, k] * kernels[kernel_name])
-
-                if i > 25 and j > 25:
-                    filtered_image[i, j, k] = np.sum(X[(i + 1)-3 : i+1, (j + 1)-3 : j+1, k] * kernels[kernel_name])
-
-            return filtered_image
+        filtered_image = cv2.filter2D(src=X, ddepth=-1, kernel=kernels[kernel_name])
+        return filtered_image
 
 
     def __implementation(self, X, kernel_name):
