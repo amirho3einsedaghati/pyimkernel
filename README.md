@@ -11,7 +11,7 @@ With this package, You can apply various image kernels such as Blur, Sobel, Scha
 
 <b> This package helps you:</b>
 - to understand what happens when applying kernels to images
-- address the issue of limited data by increasing image quantities.
+- to address the issue of limited data by increasing image quantities.
 </p>
 
 ## Image kernels
