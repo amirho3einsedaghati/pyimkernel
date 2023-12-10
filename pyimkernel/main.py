@@ -114,6 +114,9 @@ class ApplyKernels():
 
 
     def __get_filtered_image(self, X, kernel_name):
+        """
+        Filter the input image using the provided kernel.
+        """
         filtered_image = cv2.filter2D(src=X, ddepth=-1, kernel=kernels[kernel_name])
         return filtered_image
 
@@ -266,13 +269,13 @@ class ApplyKernels():
         
         - with_resize: bool, default=False
             To improve the speed of rendering matrices, You can use this parameter.
-            1. If the number of pixels in the height and width of an input image is bigger than 400 pixels, and If you have assigned True to the with_resize parameter, The number of pixels will change to `[mu(X) + 3*sigma(X)]` in height, and `[mu(X) + 2*sigma(X)]` in width.
-            2. If the number of pixels in the height and width of an input image is equal to or smaller than 400 pixels, and If you have assigned True or False to the with_resize parameter, The number of pixels won't change.
+            1. If the number of pixels in the height and width of an input image is equal to or bigger than 400 pixels, and If you have assigned True to the with_resize parameter, The number of pixels will change to `[img.height * 0.5]` in height, and `[img.width * 0.5]` in width.
+            2. If the number of pixels in the height and width of an input image is smaller than 400 pixels, and If you have assigned True to the with_resize parameter, The number of pixels won't change because the number of pixels in height and width are smaller than the expected value, 400 pixels.
 
         - disze: str or tuple, default='auto'
             You can use this parameter to resize the dimensions of an image when you are assigning the True value to the with_resize parameter.
-            If the value of dsize is 'auto', It will use the formula `[mu(X) + 3*sigma(X)]` to change the number of pixels in height, and use `[mu(X) + 2*sigma(X)]` to change the number of pixels in width.
-            If the type of dsize is tuple and contains 2 integer values, It will use disze[0] to change the number of pixels in height, and use disze[1] to change the numebr of pixels in width.
+            If the value of dsize is 'auto', It will use the formula `[img.width * 0.5]` to change the number of pixels in width, and use `[img.height * 0.5]` to change the number of pixels in height.
+            If the type of dsize is tuple and contains 2 integer values, It will use disze[0] and disze[1] to change the number of pixels in width and height.
 
         Returns:
         ------------
@@ -293,8 +296,8 @@ class ApplyKernels():
                         if with_resize == True:
                             if type(dsize) == str:
                                 if dsize == 'auto':
-                                    if X.shape[0] > 400 and X.shape[1] > 400:
-                                        X = cv2.resize(X, (round(np.mean(X) + np.std(X) * 3), round(np.mean(X) + np.std(X) * 2)))
+                                    if X.shape[0] >= 400 and X.shape[1] >= 400:
+                                        X = cv2.resize(X, (round(X.shape[0] * .5), round(X.shape[1] * .5)))
                                         filtered_image = self.__implementation(X, kernel_name)
                                         return filtered_image # a color-scale image or a dictioary of color-scale images
                                     else:
