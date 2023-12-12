@@ -44,7 +44,7 @@ You can use built-in image kernels which have the shape of (3, 3) or (5, 5) or u
 - <b>prewitt vertical edge</b> : The prewitt vertical edge kernel is similar to the right sobel kernel, emphasizing edges in the horizontal directions.
 - <b>high-pass filter</b> : The high-pass filter kernel enhances the details and edges in an image while reducing the low-frequency components.
 - <b>unsharp masking</b> : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version of the image from the original.
-- <b>dilation</b> : The dilation kernel expands regions of bright pixels in an image.
+- <b>dilation</b> : The Dilation kernels expand the bright regions or foreground in an image, which can make color images appear closer to white.
 - <b>soften</b> : The soften kernel is used to reduce image noise and create a smoother appearance while preserving overall image details.
 - <b>scharr horizontal edge</b> : The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides more weight to the central pixel and its immediate neighbors.
 - <b>scharr vertical edge</b> : The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides more weight to the central pixel and its immediate neighbors.
