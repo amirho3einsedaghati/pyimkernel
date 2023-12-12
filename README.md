@@ -26,7 +26,7 @@ To develop this package, I used the following libraries:
 ## Image kernels
 You can use built-in image kernels which have the shape of (3, 3) or (5, 5) or use your desired kernel value. To see how you can apply kernels to images, You can check out the [usage section](https://github.com/amirho3einsedaghati/pyimkernel?tab=readme-ov-file#usage) or the file [Image Kernels.ipynb](https://github.com/amirho3einsedaghati/pyimkernel/blob/main/examples/Image%20Kernels.ipynb).
 
-<b> The supported Image kernels are listed below:</b>
+<b> The supported Built-in Image kernels are listed below:</b>
 - <b>guassian blur or blur</b> : The blur kernel applies a smoothing effect, averaging the pixel values in the neighborhood.
 - <b>bottom sobel</b> : The bottom sobel kernel emphasizes edges in the bottom directions.
 - <b>emboss</b> : The emboss kernel creates a 3D embossed effect in the image.
@@ -212,6 +212,9 @@ imkernel.imshow(
 
 ## Package Status
 All Tests Passed Successfully.
+
+After applying built-in image kernels to the Sid image
+<img src="https://i.postimg.cc/XvmP7BBY/res3.png">
 
 ## About References
 To develop the package, I used the [Setosa](https://setosa.io/ev/image-kernels/), [Wikipedia](https://en.wikipedia.org/wiki/Kernel_(image_processing)), and [ChatGPT](https://chat.openai.com/) websites to gather kernel values and utilized other websites to ensure that the information I collected was accurate and properly attributed. 
