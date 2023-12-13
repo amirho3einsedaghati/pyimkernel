@@ -14,56 +14,56 @@ kernels = {
                                                   [6, 24, 36, 24, 6],
                                                   [4, 16, 24, 16, 4],
                                                   [1, 4,  6,  4,  1]]),      
-    'bottom sobel 3x3' : np.array([[-1, -2, -1],
-                                   [ 0,  0,  0],
-                                   [ 1,  2,  1]]),
-    
-    'bottom sobel 5x5' : np.array([[-1, -1, -2, -1, -1],
-                                   [-1, -1, -2, -1, -1],
-                                   [ 0,  0,  0,  0,  0],
-                                   [ 1,  1,  2,  1,  1],
-                                   [ 1,  1,  2,  1,  1]]),
-        
-    'left sobel 3x3' : np.array([[1, 0, -1],
-                                 [2, 0, -2],
-                                 [1, 0, -1]]),
-
-    'left sobel 5x5' : np.array([[1, 1, 0, -1, -1],
-                                 [2, 2, 0, -2, -2],
-                                 [3, 3, 0, -3, -3],
-                                 [2, 2, 0, -2, -2],
-                                 [1, 1, 0, -1, -1]]),
-        
-    'right sobel 3x3' : np.array([[-1, 0, 1],
-                                  [-2, 0, 2],
-                                  [-1, 0, 1]]),
-
-    'right sobel 5x5' : np.array([[-1, -1, 0, 1, 1],
-                                  [-2, -2, 0, 2, 2],
-                                  [-3, -3, 0, 3, 3],
-                                  [-2, -2, 0, 2, 2],
-                                  [-1, -1, 0, 1, 1]]),
-
-    'top sobel 3x3' : np.array([[ 1,  2,  1],
+    'top sobel 3x3' : np.array([[-1, -2, -1],
                                 [ 0,  0,  0],
-                                [-1, -2, -1]]),
+                                [ 1,  2,  1]]),
     
-    'top sobel 5x5' : np.array([[ 1,  1,  2,  1,  1],
-                                [ 1,  1,  2,  1,  1],
-                                [ 0,  0,  0,  0,  0],
+    'top sobel 5x5' : np.array([[-1, -1, -2, -1, -1],
                                 [-1, -1, -2, -1, -1],
-                                [-1, -1, -2, -1, -1]]),
+                                [ 0,  0,  0,  0,  0],
+                                [ 1,  1,  2,  1,  1],
+                                [ 1,  1,  2,  1,  1]]),
+        
+    'right sobel 3x3' : np.array([[1, 0, -1],
+                                  [2, 0, -2],
+                                  [1, 0, -1]]),
+
+    'right sobel 5x5' : np.array([[1, 1, 0, -1, -1],
+                                  [2, 2, 0, -2, -2],
+                                  [3, 3, 0, -3, -3],
+                                  [2, 2, 0, -2, -2],
+                                  [1, 1, 0, -1, -1]]),
+        
+    'left sobel 3x3' : np.array([[-1, 0, 1],
+                                 [-2, 0, 2],
+                                 [-1, 0, 1]]),
+
+    'left sobel 5x5' : np.array([[-1, -1, 0, 1, 1],
+                                 [-2, -2, 0, 2, 2],
+                                 [-3, -3, 0, 3, 3],
+                                 [-2, -2, 0, 2, 2],
+                                 [-1, -1, 0, 1, 1]]),
+
+    'bottom sobel 3x3' : np.array([[ 1,  2,  1],
+                                   [ 0,  0,  0],
+                                   [-1, -2, -1]]),
+    
+    'bottom sobel 5x5' : np.array([[ 1,  1,  2,  1,  1],
+                                   [ 1,  1,  2,  1,  1],
+                                   [ 0,  0,  0,  0,  0],
+                                   [-1, -1, -2, -1, -1],
+                                   [-1, -1, -2, -1, -1]]),
 
     'emboss 3x3' : np.array([[-2, -1, 0],
                              [-1,  1, 1],
                              [ 0,  1, 2]]),
     
-    'emboss 5x5' : np.array([[-2, -1,  0,  1,  2],
-                             [-1, -1,  0,  1,  1],
-                             [ 0,  0,  0,  0,  0],
-                             [ 1,  1,  0, -1, -1],
-                             [ 2,  1,  0, -1, -2]]),
-        
+    'emboss 5x5' : np.array([[-1, -1, -1, -1, 0],
+                             [-1, -1, -1,  0, 1],
+                             [-1, -1,  0,  1, 1],
+                             [-1,  0,  1,  1, 1],
+                             [ 0,  1,  1,  1, 2]]),
+
     'identity 3x3' : np.array([[0, 0, 0],
                                [0, 1, 0],
                                [0, 0, 0]]),
@@ -79,10 +79,10 @@ kernels = {
                               [-1, -1, -1]]),
 
     'outline 5x5' : np.array([[0,  0, -1,  0, 0],
-	                      [0, -1, -1, -1, 0],
-	                      [1, -1,  8, -1, 1],
-	                      [0, -1, -1, -1, 0],
-	                      [0,  0, -1,  0, 0]]),
+                              [0, -1, -1, -1, 0],
+                              [1, -1,  8, -1, 1],
+                              [0, -1, -1, -1, 0],
+                              [0,  0, -1,  0, 0]]),
         
     'sharpen 3x3' : np.array([[ 0, -1,  0],
                               [-1,  5, -1],
@@ -192,35 +192,35 @@ kernels = {
                                            [4, 16, 24, 16,  4],
                                            [1,  4,  6,  4,  1]]),
         
-    'scharr horizontal edge 3x3' : np.array([[-3,  0, 3],
-                                         [-10, 0, 10],
-                                         [-3,  0, 3]]),
+    'scharr vertical edge 3x3' : np.array([[-3,  0, 3],
+                                           [-10, 0, 10],
+                                           [-3,  0, 3]]),
 
-    'scharr horizontal edge 5x5' : np.array([[-1, -3,  0, 3,  1],
-                                             [-3, -10, 0, 10, 3],
-                                             [-4, -12, 0, 12, 4],
-                                             [-3, -10, 0, 10, 3],
-                                             [-1, -3,  0, 3,  1]]),
+    'scharr vertical edge 5x5' : np.array([[-1, -3,  0, 3,  1],
+                                           [-3, -10, 0, 10, 3],
+                                           [-4, -12, 0, 12, 4],
+                                           [-3, -10, 0, 10, 3],
+                                           [-1, -3,  0, 3,  1]]),
          
-    'scharr vertical edge 3x3' : np.array([[-3, -10,  -3],
-                                           [ 0,  0,    0],
-                                           [ 3,  10,   3]]),
+    'scharr horizontal edge 3x3' : np.array([[-3, -10,  -3],
+                                             [ 0,  0,    0],
+                                             [ 3,  10,   3]]),
 
-    'scharr vertical edge 5x5' : np.array([[-1, -3,  -4,   -3, -1],
-                                           [-3, -10, -12, -10, -3],
-                                           [ 0,  0,   0,   0,   0],
-                                           [ 3,  10,  12,  10,  3],
-                                           [ 1,  3,   4,   3,   1]]),
+    'scharr horizontal edge 5x5' : np.array([[-1, -3,  -4,   -3, -1],
+                                             [-3, -10, -12, -10, -3],
+                                             [ 0,  0,   0,   0,   0],
+                                             [ 3,  10,  12,  10,  3],
+                                             [ 1,  3,   4,   3,   1]]),
 
-    'motion blur 3x3' : (1 / 9.0) * np.array([[1,  0,   0],
+    'motion blur 3x3' : (1 / 3.0) * np.array([[1,  0,   0],
                                               [0,  1,   0],
                                               [0,  0,   1]]),
     
-    'motion blur 5x5' : (1 / 9.0) * np.array([[1,  0, 0, 0,  1],
-                                              [0,  1, 0, 1,  0],
+    'motion blur 5x5' : (1 / 5.0) * np.array([[1,  0, 0, 0,  0],
+                                              [0,  1, 0, 0,  0],
                                               [0,  0, 1, 0,  0],
-                                              [0,  1, 0, 1,  0],
-                                              [1,  0, 0, 0,  1]]),
+                                              [0,  0, 0, 1,  0],
+                                              [0,  0, 0, 0,  1]]),
 
     'robert horizontal edge 3x3': np.array([[0, 0,  0],
                                             [0, 1,  0],
@@ -247,20 +247,20 @@ kernels = {
                                        [0, -1, 0]]),
 
     'ridge detection1 5x5' : np.array([[ 0,  0, -1,  0,  0], # or edge detection1 5x5
-				       [ 0,  0, -1,  0,  0],
-				       [ 1, -1,  4, -1,  1],
-				       [ 0,  0, -1,  0,  0],
-				       [ 0,  0, -1,  0,  0]]),
+                                       [ 0,  0, -1,  0,  0],
+                                       [ 1, -1,  4, -1,  1],
+                                       [ 0,  0, -1,  0,  0],
+                                       [ 0,  0, -1,  0,  0]]),
 
     'ridge detection2 3x3' : np.array([[-1, -1, -1], # or edge detection2 3x3
                                        [-1,  8, -1],
                                        [-1, -1, -1]]),
 
     'ridge detection2 5x5' : np.array([[ 0,  0, -1,  0,  0], # or edge detection2 5x5
-				       [ 0,  0, -1,  0,  0],
-				       [-1, -1,  8, -1, -1],
-				       [ 0,  0, -1,  0,  0],
-				       [ 0,  0, -1,  0,  0]])
+                                       [ 0,  0, -1,  0,  0],
+                                       [-1, -1,  8, -1, -1],
+                                       [ 0,  0, -1,  0,  0],
+                                       [ 0,  0, -1,  0,  0]])
     }
 
 
@@ -380,9 +380,12 @@ class ApplyKernels():
             The grayscale image on which the filter(s) will be applied.
             
         - kernel_name: str | list
-            Kernel name can be a string such as 'all', 'custom', or one of kernels listed below or a list of kernels listed below.
+            kernel_name can be a string such as 'all', 'custom', or one of the kernels listed below or a list of the kernels listed below.
 
-            The list of valid kernels:
+            When kernel_name is set to 'custom', you only need to determine the value of the kernel_value argument and don't need to pass a value to the kernel_size argument because in this case, the value for kernel_size is None.
+            When kernel_name is set to 'all', one of the built-in kernels or a list of the kernels listed below , you only need to determine the value of the kernel_size argument and don't need to pass a value to the kernel_value argument because in this case, the value for kernel_value is None.
+
+            The list of built-in kernels:
             'guassian blur' : The blur kernel applies a smoothing effect, averaging the pixel values in the neighborhood.
             'bottom sobel' : The bottom sobel kernel emphasizes edges in the bottom directions.
             'emboss' : The emboss kernel creates a 3D embossed effect in the image.
@@ -400,7 +403,7 @@ class ApplyKernels():
             'prewitt vertical edge' : The prewitt vertical edge kernel is similar to the right sobel kernel, emphasizing edges in the horizontal directions.
             'high-pass filter' : The high-pass filter kernel enhances the details and edges in an image while reducing the low-frequency components.
             'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version of the image from the original.
-            'dilation' : The dilation kernel expands regions of bright pixels in an image.
+            'dilation' : The Dilation kernels expand the bright regions or foreground in an image, which can make color images appear closer to white.
             'soften' : The soften kernel is used to reduce image noise and create a smoother appearance while preserving overall image details.
             'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides more weight to the central pixel and its immediate neighbors.	
             'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides more weight to the central pixel and its immediate neighbors.
@@ -488,35 +491,38 @@ class ApplyKernels():
             The color-scale image on which the filter(s) will be applied.
             
         - kernel_name: str | list
-            Kernel name can be a string such as 'all', 'custom', or one of kernels listed below or a list of kernels listed below.
+            kernel_name can be a string such as 'all', 'custom', or one of the kernels listed below or a list of the kernels listed below.
 
-            The list of valid kernels:
-                'blur' : The blur kernel applies a smoothing effect, averaging the pixel values in the neighborhood.
-                'bottom sobel' : The bottom sobel kernel emphasizes edges in the bottom directions.
-                'emboss' : The emboss kernel creates a 3D embossed effect in the image.
-                'identity' : The identity kernel does not modify the image and leaves it unchanged.
-                'left sobel' : The left sobel kernel emphasizes edges in the left directions.
-                'outline' : The outline kernel detects edges and boundaries by emphasizing the differences in intensity between neighboring pixels.
-                'right sobel' : The right sobel kernel emphasizes edges in the right directions.
-                'sharpen' : The sharpen kernel enhances edges and details in an image. 
-                'top sobel' : The top sobel kernel emphasizes edges in the top directions.
-                'horizontal edge' : The horizontal edge kernel highlights horizontal edges.
-                'vertical edge' : The vertical edge kernel highlights vertical edges.
-                'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for all neighboring pixels.
-                'laplacian' : The Laplacian kernel is used for edge detection and image sharpening.
-                'prewitt horizontal edge' : The prewitt horizontal edge kernel is similar to the bottom sobel kernel, emphasizing edges in the horizontal directions.
-                'prewitt vertical edge' : The prewitt vertical edge kernel is similar to the right sobel kernel, emphasizing edges in the horizontal directions.
-                'high-pass filter' : The high-pass filter kernel enhances the details and edges in an image while reducing the low-frequency components.
-                'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version of the image from the original.
-                'dilation' : The dilation kernel expands regions of bright pixels in an image.
-                'soften' : The soften kernel is used to reduce image noise and create a smoother appearance while preserving overall image details.
-                'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides more weight to the central pixel and its immediate neighbors.	
-                'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides more weight to the central pixel and its immediate neighbors.
-                'motion blur' : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction. The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere.
-                'robert horizontal edge' : A simple and efficient edge detection operator to detect horizontal edges. The kernels consist of positive and negative values that highlight the change in intensity along the respective directions.
-                'robert vertical edge' : A simple and efficient edge detection operator to detect vertical edges. The kernels consist of positive and negative values that highlight the change in intensity along the respective directions.
-                'ridge detection1' : In this kernel, the weights are increased towards the center to emphasize the ridge-like structures in the image.
-                'ridge detection2' : This kernel is designed to enhance ridge-like structures in the image. The central value is higher (8) to emphasize the ridge, while the surrounding values are negative (-1) to suppress the surrounding areas.
+            When kernel_name is set to 'custom', you only need to determine the value of the kernel_value argument and don't need to pass a value to the kernel_size argument because in this case, the value for kernel_size is None.
+            When kernel_name is set to 'all', one of the built-in kernels or a list of the kernels listed below , you only need to determine the value of the kernel_size argument and don't need to pass a value to the kernel_value argument because in this case, the value for kernel_value is None.
+
+            The list of built-in kernels:
+            'guassian blur' : The blur kernel applies a smoothing effect, averaging the pixel values in the neighborhood.
+            'bottom sobel' : The bottom sobel kernel emphasizes edges in the bottom directions.
+            'emboss' : The emboss kernel creates a 3D embossed effect in the image.
+            'identity' : The identity kernel does not modify the image and leaves it unchanged.
+            'left sobel' : The left sobel kernel emphasizes edges in the left directions.
+            'outline' : The outline kernel detects edges and boundaries by emphasizing the differences in intensity between neighboring pixels.
+            'right sobel' : The right sobel kernel emphasizes edges in the right directions.
+            'sharpen' : The sharpen kernel enhances edges and details in an image. 
+            'top sobel' : The top sobel kernel emphasizes edges in the top directions.
+            'horizontal edge' : The horizontal edge kernel highlights horizontal edges.
+            'vertical edge' : The vertical edge kernel highlights vertical edges.
+            'box blur' : The box blur kernel is similar to the blur kernel. It applies a simple averaging operation to create a blur effect, but with equal weights for all neighboring pixels.
+            'laplacian' : The Laplacian kernel is used for edge detection and image sharpening.
+            'prewitt horizontal edge' : The prewitt horizontal edge kernel is similar to the bottom sobel kernel, emphasizing edges in the horizontal directions.
+            'prewitt vertical edge' : The prewitt vertical edge kernel is similar to the right sobel kernel, emphasizing edges in the horizontal directions.
+            'high-pass filter' : The high-pass filter kernel enhances the details and edges in an image while reducing the low-frequency components.
+            'unsharp masking' : The unsharp masking kernel is used for image sharpening. It enhances the edges and details in an image by subtracting a blurred version of the image from the original.
+            'dilation' : The Dilation kernels expand the bright regions or foreground in an image, which can make color images appear closer to white.
+            'soften' : The soften kernel is used to reduce image noise and create a smoother appearance while preserving overall image details.
+            'scharr horizontal edge': The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides more weight to the central pixel and its immediate neighbors.	
+            'scharr vertical edge': The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides more weight to the central pixel and its immediate neighbors.
+            'motion blur' : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction. The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere.
+            'robert horizontal edge' : A simple and efficient edge detection operator to detect horizontal edges. The kernels consist of positive and negative values that highlight the change in intensity along the respective directions.
+            'robert vertical edge' : A simple and efficient edge detection operator to detect vertical edges. The kernels consist of positive and negative values that highlight the change in intensity along the respective directions.
+            'ridge detection1' : In this kernel, the weights are increased towards the center to emphasize the ridge-like structures in the image.
+            'ridge detection2' : This kernel is designed to enhance ridge-like structures in the image. The central value is higher (8) to emphasize the ridge, while the surrounding values are negative (-1) to suppress the surrounding areas.
 
         - kernel_size: tuple | NoneType, default=None
             The kernel which will be applied to the input image must be a square-like shape such as (3, 3) or (5, 5).
