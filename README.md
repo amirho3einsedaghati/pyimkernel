@@ -15,7 +15,7 @@ With this package, You can apply various image kernels such as Blur, Sobel, Scha
 - to develop end-to-end applications.
 </p>
 
-If you are interested in learning more about the package, I encourage you to check out [main.py](https://github.com/amirho3einsedaghati/pyimkernel/blob/main/pyimkernel/main.py).
+If you are interested in learning more about the package, I encourage you to check out the [main.py](https://github.com/amirho3einsedaghati/pyimkernel/blob/main/pyimkernel/main.py) file.
 
 ## About Dependencies
 To develop this package, I used the following libraries:
@@ -213,8 +213,8 @@ imkernel.imshow(
 ## Package Status
 All Tests Passed Successfully.
 
-After applying built-in image kernels to the Sid image
-<img src="https://i.postimg.cc/XvmP7BBY/res3.png">
+<p>After applying built-in image kernels to the Sid image</p>
+<img src="https://i.postimg.cc/TwtpRzhg/Sid.png">
 
 ## About References
 To develop the package, I used the [Setosa](https://setosa.io/ev/image-kernels/), [Wikipedia](https://en.wikipedia.org/wiki/Kernel_(image_processing)), and [ChatGPT](https://chat.openai.com/) websites to gather kernel values and utilized other websites to ensure that the information I collected was accurate and properly attributed. 
