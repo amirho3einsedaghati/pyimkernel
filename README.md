@@ -49,10 +49,10 @@ You can use built-in image kernels which have the shape of (3, 3) or (5, 5) or u
 - <b>scharr horizontal edge</b> : The scharr horizontal edge kernel is used for edge detection and gradient estimation along the horizontal direction. It provides more weight to the central pixel and its immediate neighbors.
 - <b>scharr vertical edge</b> : The scharr vertical edge kernel is used for edge detection and gradient estimation along the vertical direction. It provides more weight to the central pixel and its immediate neighbors.
 - <b>motion blur</b> : The motion blur kernel is used to simulate the effect of motion in an image. It achieves this by applying a linear blur in a specific direction. The kernel consists of non-zero values along a line in the direction of motion, with zeros elsewhere.
-- robert horizontal edge : A simple and efficient edge detection operator to detect horizontal edges. The kernels consist of positive and negative values that highlight the change in intensity along the respective directions.
-- robert vertical edge : A simple and efficient edge detection operator to detect vertical edges. The kernels consist of positive and negative values that highlight the change in intensity along the respective directions.
-- ridge detection1 or edge detection1: In this kernel, the weights are increased towards the center to emphasize the ridge-like structures in the image.
-- ridge detection2 or edge detection2: This kernel is designed to enhance ridge-like structures in the image. The central value is higher (8) to emphasize the ridge, while the surrounding values are negative (-1) to suppress the surrounding areas.
+- <b>robert horizontal edge</b> : A simple and efficient edge detection operator to detect horizontal edges. The kernels consist of positive and negative values that highlight the change in intensity along the respective directions.
+- <b>robert vertical edge</b> : A simple and efficient edge detection operator to detect vertical edges. The kernels consist of positive and negative values that highlight the change in intensity along the respective directions.
+- <b>ridge detection1 or edge detection1</b>: In this kernel, the weights are increased towards the center to emphasize the ridge-like structures in the image.
+- <b>ridge detection2 or edge detection2</b>: This kernel is designed to enhance ridge-like structures in the image. The central value is higher (8) to emphasize the ridge, while the surrounding values are negative (-1) to suppress the surrounding areas.
 
 ## Pyimkernel Installation
 <pre>
