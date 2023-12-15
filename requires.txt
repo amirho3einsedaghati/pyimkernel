@@ -2,3 +2,6 @@
 numpy
 matplotlib
 opencv-python
+pillow
+pilgram2
+
