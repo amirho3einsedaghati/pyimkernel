@@ -11,7 +11,7 @@ COPY . .
 EXPOSE 5400
 
 LABEL version='1.0'
-LABEL description='Applying some image kernel(s) on a grayscale or RGB color-scale image'
+LABEL description='Applying some image kernel(s) on a grayscale or RGB|BGR color-scale image'
 LABEL maintainer="Amir Hosein Sedaghati <<amirhosseinsedaghati42@gmail.com>>"
 
 CMD ["python", "pyimkernel/main.py"]
