@@ -237,14 +237,15 @@ manipulation.imshow(im)
 
 # manipulate and show the Sid image using the blending technique `color`
 im = manipulation.color(
-    Image.fromarray(image2),
     Image.fromarray(
-        cv2.resize(
-            cv2.cvtColor(
-                image1, cv2.COLOR_BGR2RGB
-            ),
-        image2.shape[:2])
+        cv2.cvtColor(
+            image2, cv2.COLOR_BGR2RGB
+        )),
+    Image.fromarray(
+        cv2.cvtColor(
+        image1, cv2.COLOR_BGR2RGB
     ))
+)
 manipulation.imshow(im)
 ```
 ## After using the ApplyKernels class
