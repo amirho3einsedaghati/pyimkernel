@@ -6,13 +6,13 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name='pyimkernel',
-    version='1.3.0',
+    version='1.3.1',
     packages=find_packages(exclude=['tests*', 'examples*']),
     license='MIT',
     description='Applying some image kernel(s) on a grayscale or RGB|BGR color-scale image',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    install_requires=['numpy', 'matplotlib', 'opencv-python'],
+    install_requires=['numpy', 'matplotlib', 'opencv-python', 'pillow', 'pilgram2'],
     url='https://github.com/amirho3einsedaghati/pyimkernel',
     author='Amir Hosein Sedaghati',
     author_email='amirhosseinsedaghati42@gmail.com',
